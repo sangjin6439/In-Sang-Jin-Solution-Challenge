@@ -1,4 +1,4 @@
-package gdsc.insangjinsolutionchallenge.example;
+package gdsc.insangjinsolutionchallenge.problem;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @NoArgsConstructor
-public class Example {
+public class Problem {
     @Id
     @GeneratedValue
     private Long id;
