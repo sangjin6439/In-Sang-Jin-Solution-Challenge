@@ -2,32 +2,47 @@ package gdsc.insangjinsolutionchallenge.user;
 
 import gdsc.insangjinsolutionchallenge.common.DateEntity;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.util.Optional;
 
 @Entity
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "USER")
+@Table(name = "user")
+@Builder
 public class User extends DateEntity {
 
     @Id
-    @GeneratedValue
-    @Column(name = "USER_ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     private Long id;
 
-    @Column(name = "AGE")
+    @Column(nullable = false)
+    private String name;
+
+    @Column(nullable = false)
     private Long age;
 
-    @Column(name = "EMAIL")
+    @Column(nullable = false)
     private String email;
 
-    @Column(name = "STATUS")
+    @Column(name = "status")
     private String status;
 
-    @Column(name = "ROLE")
+    @Enumerated(EnumType.STRING)
     private UserRole role;
+
+
+    public static User toEntity(RequestUserDto userDto) {
+        return User.builder()
+                .name(userDto.getName())
+                .age(userDto.getAge())
+                .email(userDto.getEmail())
+                .status(userDto.getStatus())
+                .role(UserRole.STUDENT)
+                .build();
+    }
+
 }
