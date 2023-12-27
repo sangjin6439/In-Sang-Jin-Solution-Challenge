@@ -21,4 +21,14 @@ public class UserController {
         return userService.findUser(email);
     }
 
+    @PutMapping("/{email}")
+    public String update(@PathVariable("email") String email,@RequestBody RequestUserDto requestUserDto){
+        return userService.updateUser(email,requestUserDto);
+    }
+
+    @DeleteMapping("/{email}")
+    public String delete(@PathVariable("email") String email){
+        return userService.deleteUser(email);
+    }
+
 }

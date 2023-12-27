@@ -3,6 +3,8 @@ package gdsc.insangjinsolutionchallenge.user;
 import lombok.Builder;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
 @Builder
 public class ResponseUserDto {
@@ -11,6 +13,8 @@ public class ResponseUserDto {
     private String email;
     private String status;
     private UserRole role;
+    private LocalDateTime creatAt;
+
 
     public static ResponseUserDto toDto(User user) {
         return ResponseUserDto.builder()
