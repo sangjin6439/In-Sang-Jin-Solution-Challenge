@@ -22,9 +22,16 @@ public class ExampleService {
         return example;
     }
 
-//    @Transactional(readOnly = true)
-//    public RequestExampleDto findExample(Long id) {
-//        RequestExampleDto requestExampleDto = exampleRepository.findById(id);
-//    }
+    @Transactional(readOnly = true)
+    public ResponseExampleDto findExample(Long exampleId) {
+         ResponseExampleDto responseExampleDto= ResponseExampleDto.toDto(findById(exampleId));
+         return responseExampleDto;
+    }
+
+
+    private Example findById(Long exampleId){
+        return exampleRepository.findById(exampleId)
+                .orElseThrow(()->new IllegalArgumentException("문제 번호를 확인해 주세요"));
+    }
 
 }

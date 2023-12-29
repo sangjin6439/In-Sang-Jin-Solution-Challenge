@@ -34,4 +34,7 @@ public class Example extends DateEntity {
     public void saveImgPath(String imgPath){
         this.imgPath=imgPath;
     }
+
+
+
 }
