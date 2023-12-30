@@ -7,5 +7,5 @@ import org.springframework.web.multipart.MultipartFile;
 public class RequestExampleDto {
     private String title;
     private MultipartFile img;
-    
+    private String answer;
 }

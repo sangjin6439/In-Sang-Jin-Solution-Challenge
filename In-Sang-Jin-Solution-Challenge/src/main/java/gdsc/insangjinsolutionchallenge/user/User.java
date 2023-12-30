@@ -31,27 +31,29 @@ public class User extends DateEntity {
     @Column(nullable = false)
     private String school;
 
-    @Column(name = "status")
-    private String status;
+
+    private Long totalScore;
+
+ //rank는 예약어라서 sql에서 오류가 난다.
+    private String ranking;
 
     @Enumerated(EnumType.STRING)
     private UserRole role;
 
-
-    public static User toEntity(RequestUserDto userDto) {
+    public static User toEntity(RequestUserDto requestuserDto) {
         return User.builder()
-                .name(userDto.getName())
-                .age(userDto.getAge())
-                .email(userDto.getEmail())
-                .school(userDto.getSchool())
-                .status(userDto.getStatus())
+                .name(requestuserDto.getName())
+                .age(requestuserDto.getAge())
+                .email(requestuserDto.getEmail())
+                .school(requestuserDto.getSchool())
                 .role(UserRole.STUDENT)
                 .build();
     }
+
+    // 이름, 나이, 학교 바꿀 수 있게 열어둠
     public void update(RequestUserDto requestUserDto) {
         this.name = requestUserDto.getName();
         this.age = requestUserDto.getAge();
-        this.school= requestUserDto.getSchool();
-        this.status = requestUserDto.getStatus();
+        this.school = requestUserDto.getSchool();
     }
 }

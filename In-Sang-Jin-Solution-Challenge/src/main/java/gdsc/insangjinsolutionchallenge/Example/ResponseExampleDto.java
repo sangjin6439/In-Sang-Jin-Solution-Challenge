@@ -14,6 +14,8 @@ public class ResponseExampleDto {
 
     private String img;
 
+    private String answer;
+
     private LocalDateTime creatAt;
 
     private LocalDateTime updateAt;
@@ -22,6 +24,7 @@ public class ResponseExampleDto {
         return ResponseExampleDto.builder()
                 .title(example.getTitle())
                 .img(example.getImgPath())
+                .answer(example.getAnswer())
                 .creatAt(example.getCreateAt())
                 .updateAt(example.getUpdateAt())
                 .build();

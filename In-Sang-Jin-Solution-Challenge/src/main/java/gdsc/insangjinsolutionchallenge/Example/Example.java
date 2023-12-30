@@ -1,19 +1,14 @@
 package gdsc.insangjinsolutionchallenge.Example;
 
 import gdsc.insangjinsolutionchallenge.common.DateEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @Entity
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@Table(name="example")
 @Getter
 @Builder
 public class Example extends DateEntity {
@@ -22,13 +17,19 @@ public class Example extends DateEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String title;
 
+    @Column(nullable = false)
     private String imgPath;
+
+    @Column(nullable = false)
+    private String answer;
 
     public static Example toEntity(RequestExampleDto requestExampleDto){
         return Example.builder()
                 .title(requestExampleDto.getTitle())
+                .answer(requestExampleDto.getAnswer())
                 .build();
     }
     public void saveImgPath(String imgPath){
@@ -37,6 +38,7 @@ public class Example extends DateEntity {
 
     public void update(RequestExampleDto requestExampleDto){
         this.title=requestExampleDto.getTitle();
+        this.answer= requestExampleDto.getAnswer();
     }
 
 }

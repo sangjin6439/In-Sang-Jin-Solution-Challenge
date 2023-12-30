@@ -1,19 +1,28 @@
 package gdsc.insangjinsolutionchallenge.submission;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import gdsc.insangjinsolutionchallenge.Example.Example;
+import jakarta.persistence.*;
+import jdk.jfr.Name;
+import lombok.*;
 
 @Entity
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@Table(name = "submission")
+@Builder
+@Getter
 public class Submission {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false)
+    private String userAnswer;
+
+    private boolean correct;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private Example example;
 
 }

@@ -12,7 +12,8 @@ public class ResponseUserDto {
     private Long age;
     private String email;
     private String school;
-    private String status;
+    private String ranking;
+    private Long totalScore;
     private UserRole role;
     private LocalDateTime creatAt;
     private LocalDateTime updateAt;
@@ -23,7 +24,8 @@ public class ResponseUserDto {
                 .age(user.getAge())
                 .email(user.getEmail())
                 .school(user.getSchool())
-                .status(user.getStatus())
+                .totalScore(user.getTotalScore())
+                .ranking(user.getRanking())
                 .role(user.getRole())
                 .creatAt(user.getCreateAt())
                 .updateAt(user.getUpdateAt())
