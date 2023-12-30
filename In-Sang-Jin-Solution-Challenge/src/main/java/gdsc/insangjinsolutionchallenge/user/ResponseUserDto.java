@@ -11,6 +11,7 @@ public class ResponseUserDto {
     private String name;
     private Long age;
     private String email;
+    private String school;
     private String status;
     private UserRole role;
     private LocalDateTime creatAt;
@@ -21,6 +22,7 @@ public class ResponseUserDto {
                 .name(user.getName())
                 .age(user.getAge())
                 .email(user.getEmail())
+                .school(user.getSchool())
                 .status(user.getStatus())
                 .role(user.getRole())
                 .creatAt(user.getCreateAt())

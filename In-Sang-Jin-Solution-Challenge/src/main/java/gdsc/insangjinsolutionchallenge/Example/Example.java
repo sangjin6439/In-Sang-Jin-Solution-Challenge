@@ -35,6 +35,8 @@ public class Example extends DateEntity {
         this.imgPath=imgPath;
     }
 
-
+    public void update(RequestExampleDto requestExampleDto){
+        this.title=requestExampleDto.getTitle();
+    }
 
 }

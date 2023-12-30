@@ -23,8 +23,8 @@ public class UserController {
         return userService.findUser(email);
     }
 
-    @GetMapping
-    public List<User> findusers(){
+    @GetMapping//DTO로 매핑 아직 안함
+    public List<User> findUsers(){
         return userService.findUsers();
     }
 

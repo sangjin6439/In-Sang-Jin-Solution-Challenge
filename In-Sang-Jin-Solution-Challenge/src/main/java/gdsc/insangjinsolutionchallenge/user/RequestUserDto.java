@@ -9,5 +9,6 @@ public class RequestUserDto {
     private String name;
     private Long age;
     private String email;
+    private String school;
     private String status;
 }

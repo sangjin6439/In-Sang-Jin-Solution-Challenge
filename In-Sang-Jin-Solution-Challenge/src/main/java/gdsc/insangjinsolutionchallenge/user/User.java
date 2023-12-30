@@ -28,6 +28,9 @@ public class User extends DateEntity {
     @Column(nullable = false)
     private String email;
 
+    @Column(nullable = false)
+    private String school;
+
     @Column(name = "status")
     private String status;
 
@@ -40,6 +43,7 @@ public class User extends DateEntity {
                 .name(userDto.getName())
                 .age(userDto.getAge())
                 .email(userDto.getEmail())
+                .school(userDto.getSchool())
                 .status(userDto.getStatus())
                 .role(UserRole.STUDENT)
                 .build();
@@ -47,6 +51,7 @@ public class User extends DateEntity {
     public void update(RequestUserDto requestUserDto) {
         this.name = requestUserDto.getName();
         this.age = requestUserDto.getAge();
+        this.school= requestUserDto.getSchool();
         this.status = requestUserDto.getStatus();
     }
 }
