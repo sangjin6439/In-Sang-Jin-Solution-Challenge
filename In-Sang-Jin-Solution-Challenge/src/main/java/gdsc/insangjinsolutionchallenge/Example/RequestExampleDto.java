@@ -8,4 +8,5 @@ public class RequestExampleDto {
     private String title;
     private MultipartFile img;
     private String answer;
+    private Integer score;
 }

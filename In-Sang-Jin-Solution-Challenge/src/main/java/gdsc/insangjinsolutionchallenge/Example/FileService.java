@@ -15,7 +15,7 @@ public class FileService {
     private String fileDir;
 
     public String saveFile(MultipartFile multipartFile) throws IOException {
-        String imgPath = UUID.randomUUID() + "-" + multipartFile.getOriginalFilename();
+        String imgPath = UUID.randomUUID() + "_" + multipartFile.getOriginalFilename();
         multipartFile.transferTo(new File(fileDir + imgPath));
         return fileDir + imgPath;
     }

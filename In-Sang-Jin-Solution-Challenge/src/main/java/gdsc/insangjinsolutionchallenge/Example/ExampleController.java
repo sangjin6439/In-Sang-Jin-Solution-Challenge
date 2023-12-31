@@ -22,13 +22,18 @@ public class ExampleController {
     }
 
     @GetMapping("/{id}")
-    public ResponseExampleDto find(@PathVariable("id") Long id){
+    public WithOutAnswerResponseExampleDto find(@PathVariable("id") Long id){
         return exampleService.findExample(id);
     }
 
     @GetMapping //DTO로 매핑 해야힘
     public List<Example> findAll(){
         return exampleService.findExamples();
+    }
+
+    @GetMapping("/answer/{id}")
+    public AnswerResponseDto findAnswer(@PathVariable("id") Long id){
+        return exampleService.findAnswer(id);
     }
 
     @PatchMapping("/{id}")

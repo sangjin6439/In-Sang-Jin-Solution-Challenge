@@ -8,7 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@Table(name="example")
+@Table(name = "example")
 @Getter
 @Builder
 public class Example extends DateEntity {
@@ -26,19 +26,25 @@ public class Example extends DateEntity {
     @Column(nullable = false)
     private String answer;
 
-    public static Example toEntity(RequestExampleDto requestExampleDto){
+    @Column(nullable = false)
+    private int score;
+
+    public static Example toEntity(RequestExampleDto requestExampleDto) {
         return Example.builder()
                 .title(requestExampleDto.getTitle())
                 .answer(requestExampleDto.getAnswer())
+                .score(requestExampleDto.getScore())
                 .build();
     }
-    public void saveImgPath(String imgPath){
-        this.imgPath=imgPath;
+
+    public void saveImgPath(String imgPath) {
+        this.imgPath = imgPath;
     }
 
-    public void update(RequestExampleDto requestExampleDto){
-        this.title=requestExampleDto.getTitle();
-        this.answer= requestExampleDto.getAnswer();
+    public void update(RequestExampleDto requestExampleDto) {
+        this.title = requestExampleDto.getTitle();
+        this.answer = requestExampleDto.getAnswer();
+        this.score = requestExampleDto.getScore();
     }
 
 }

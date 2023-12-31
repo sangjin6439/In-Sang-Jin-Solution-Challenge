@@ -8,23 +8,20 @@ import java.time.LocalDateTime;
 
 @Data
 @Builder
-public class ResponseExampleDto {
+public class WithOutAnswerResponseExampleDto {
 
     private String title;
 
     private String img;
 
-    private String answer;
-
     private LocalDateTime creatAt;
 
     private LocalDateTime updateAt;
 
-    public static ResponseExampleDto toDto(Example example){
-        return ResponseExampleDto.builder()
+    public static WithOutAnswerResponseExampleDto toDto(Example example){
+        return WithOutAnswerResponseExampleDto.builder()
                 .title(example.getTitle())
                 .img(example.getImgPath())
-                .answer(example.getAnswer())
                 .creatAt(example.getCreateAt())
                 .updateAt(example.getUpdateAt())
                 .build();

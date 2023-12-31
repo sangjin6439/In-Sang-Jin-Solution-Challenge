@@ -24,16 +24,23 @@ public class ExampleService {
         return example;
     }
 
+    /* 문제 조회 메서드 (정답x)*/
     @Transactional(readOnly = true)
-    public ResponseExampleDto findExample(Long exampleId) {
+    public WithOutAnswerResponseExampleDto findExample(Long exampleId) {
         Example example = findById(exampleId);
-         ResponseExampleDto responseExampleDto= ResponseExampleDto.toDto(example);
-         return responseExampleDto;
+        WithOutAnswerResponseExampleDto responseExampleDto = WithOutAnswerResponseExampleDto.toDto(example);
+        return responseExampleDto;
     }
 
     @Transactional(readOnly = true)
-    public List<Example> findExamples(){
+    public List<Example> findExamples() {
         return exampleRepository.findAll();
+    }
+
+    /* 정답 조회 메서드 */
+    @Transactional(readOnly = true)
+    public AnswerResponseDto findAnswer(Long exampleId) {
+        return AnswerResponseDto.answerResponseDto(findById(exampleId));
     }
 
     @Transactional
@@ -45,14 +52,14 @@ public class ExampleService {
     }
 
     @Transactional
-    public String deleteExample(Long exampleId){
+    public String deleteExample(Long exampleId) {
         exampleRepository.delete(findById(exampleId));
         return "삭제 완료!";
     }
 
-    private Example findById(Long exampleId){
+    private Example findById(Long exampleId) {
         return exampleRepository.findById(exampleId)
-                .orElseThrow(()->new IllegalArgumentException("문제 번호를 확인해 주세요"));
+                .orElseThrow(() -> new IllegalArgumentException("문제 번호를 확인해 주세요"));
     }
 
 }

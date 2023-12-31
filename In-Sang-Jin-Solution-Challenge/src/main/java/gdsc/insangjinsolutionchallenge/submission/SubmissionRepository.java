@@ -1,4 +1,4 @@
-package gdsc.insangjinsolutionchallenge.Example;
+package gdsc.insangjinsolutionchallenge.submission;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface ExampleRepository extends JpaRepository<Example,Long> {
+public interface SubmissionRepository extends JpaRepository<Submission,Long> {
 
 }

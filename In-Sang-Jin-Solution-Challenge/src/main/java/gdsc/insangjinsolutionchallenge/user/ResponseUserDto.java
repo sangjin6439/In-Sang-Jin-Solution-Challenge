@@ -13,7 +13,7 @@ public class ResponseUserDto {
     private String email;
     private String school;
     private String ranking;
-    private Long totalScore;
+    private Integer totalScore;
     private UserRole role;
     private LocalDateTime creatAt;
     private LocalDateTime updateAt;

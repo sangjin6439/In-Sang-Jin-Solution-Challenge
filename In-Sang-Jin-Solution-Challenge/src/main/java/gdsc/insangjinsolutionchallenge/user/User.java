@@ -31,10 +31,9 @@ public class User extends DateEntity {
     @Column(nullable = false)
     private String school;
 
+    private int totalScore;
 
-    private Long totalScore;
-
- //rank는 예약어라서 sql에서 오류가 난다.
+    //rank는 예약어라서 sql에서 오류가 난다.
     private String ranking;
 
     @Enumerated(EnumType.STRING)
@@ -55,5 +54,10 @@ public class User extends DateEntity {
         this.name = requestUserDto.getName();
         this.age = requestUserDto.getAge();
         this.school = requestUserDto.getSchool();
+    }
+
+    // 점수 추가 메서드 //
+    public void addTotalScore(int score) {
+        this.totalScore += score;
     }
 }
