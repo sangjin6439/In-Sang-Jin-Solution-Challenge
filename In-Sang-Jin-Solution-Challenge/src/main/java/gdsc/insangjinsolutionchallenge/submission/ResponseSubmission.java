@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 public class ResponseSubmission {
 
     private String userAnswer;
-    private Boolean correct;
+    private String correct;
     private LocalDateTime createAt;
 
 

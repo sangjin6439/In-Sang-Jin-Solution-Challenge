@@ -19,10 +19,10 @@ public class Submission extends DateEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    @Column(nullable = false)
+    @Column(nullable = false)
     private String userAnswer;
 
-    private boolean correct;
+    private String correct;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -32,18 +32,17 @@ public class Submission extends DateEntity {
     @JoinColumn(name = "example_id")
     private Example example;
 
-    // 정답 확인 메서드
-    public boolean checkAnswer(Example example) {
 
+    // 정답 확인 메서드
+    public String checkAnswer(Example example) {
         if (example.getAnswer().equals(userAnswer)) {
-            return correct = true;
+            return correct = "정답";
         } else {
-            return correct = false;
+            return correct = "오답";
         }
     }
 
-
-    public void setCorrect(boolean correct) {
+    public void setCorrect(String correct) {
         this.correct = correct;
     }
 }
