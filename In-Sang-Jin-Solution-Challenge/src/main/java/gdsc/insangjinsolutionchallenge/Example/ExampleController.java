@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/example")
+@RequestMapping("/examples")
 public class ExampleController {
 
     private final ExampleService exampleService;

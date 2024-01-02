@@ -7,7 +7,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/submission")
+@RequestMapping("/submissions")
 public class SubmissionController {
 
     private final SubmissionService submissionService;
