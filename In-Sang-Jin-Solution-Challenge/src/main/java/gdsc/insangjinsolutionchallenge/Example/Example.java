@@ -29,11 +29,15 @@ public class Example extends DateEntity {
     @Column(nullable = false)
     private int score;
 
+    @Column(nullable = false)
+    private String grade;
+
     public static Example toEntity(RequestExampleDto requestExampleDto) {
         return Example.builder()
                 .title(requestExampleDto.getTitle())
                 .answer(requestExampleDto.getAnswer())
                 .score(requestExampleDto.getScore())
+                .grade(requestExampleDto.getGrade())
                 .build();
     }
 
@@ -45,6 +49,7 @@ public class Example extends DateEntity {
         this.title = requestExampleDto.getTitle();
         this.answer = requestExampleDto.getAnswer();
         this.score = requestExampleDto.getScore();
+        this.grade = requestExampleDto.getGrade();
     }
 
 }

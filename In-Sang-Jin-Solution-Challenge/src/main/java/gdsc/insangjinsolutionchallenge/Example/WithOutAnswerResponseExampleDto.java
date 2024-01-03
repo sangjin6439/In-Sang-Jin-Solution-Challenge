@@ -14,6 +14,8 @@ public class WithOutAnswerResponseExampleDto {
 
     private String img;
 
+    private Integer score;
+
     private LocalDateTime creatAt;
 
     private LocalDateTime updateAt;
@@ -22,6 +24,7 @@ public class WithOutAnswerResponseExampleDto {
         return WithOutAnswerResponseExampleDto.builder()
                 .title(example.getTitle())
                 .img(example.getImgPath())
+                .score(example.getScore())
                 .creatAt(example.getCreateAt())
                 .updateAt(example.getUpdateAt())
                 .build();

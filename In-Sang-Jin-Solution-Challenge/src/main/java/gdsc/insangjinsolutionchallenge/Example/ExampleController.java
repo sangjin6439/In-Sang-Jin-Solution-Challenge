@@ -31,7 +31,7 @@ public class ExampleController {
         return exampleService.findExamples();
     }
 
-    @GetMapping("/answer/{id}")
+    @GetMapping("/answers/{id}")
     public AnswerResponseDto findAnswer(@PathVariable("id") Long id){
         return exampleService.findAnswer(id);
     }
