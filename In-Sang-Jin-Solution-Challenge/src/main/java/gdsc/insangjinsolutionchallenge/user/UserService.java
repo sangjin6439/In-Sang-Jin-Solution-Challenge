@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -15,8 +16,8 @@ public class UserService {
 
     @Transactional
     public String saveUser(RequestUserDto requestUserDto) {
-         userRepository.save(User.toEntity(requestUserDto));
-         return "저장 완료!";
+        userRepository.save(User.toEntity(requestUserDto));
+        return "저장 완료!";
     }
 
     @Transactional(readOnly = true)
@@ -25,8 +26,22 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public List<User> findUsers(){
+    public List<User> findUsers() {
         return userRepository.findAll();
+    }
+
+    @Transactional(readOnly = true)
+    public List<RankingUserDto> findUsersByTotalScore(){
+        List<User> userList = userRepository.findUsersByTotalScore();
+        return getRankingUserDtos(userList);
+    }
+
+
+    @Transactional(readOnly = true)
+    public List<RankingUserDto> findUsersBySchoolWithTotalScore(String school) {
+        List<User> userList = userRepository.findUsersBySchoolWithTotalScore(school);
+        return getRankingUserDtos(userList);
+
     }
 
     @Transactional
@@ -46,5 +61,19 @@ public class UserService {
         return userRepository.findUserByEmail(email).orElseThrow(() -> new IllegalArgumentException("이메일을 확인해 주세요."));
     }
 
+    private List<RankingUserDto> getRankingUserDtos(List<User> userList) {
+        List<RankingUserDto> rankingUserDtos = new ArrayList<>();
+
+        for (User user : userList) {
+            RankingUserDto rankingUserDto = RankingUserDto.builder()
+                    .name(user.getName())
+                    .email(user.getEmail())
+                    .totalScore(user.getTotalScore())
+                    .tier(user.getTier())
+                    .build();
+            rankingUserDtos.add(rankingUserDto);
+        }
+        return rankingUserDtos;
+    }
 
 }

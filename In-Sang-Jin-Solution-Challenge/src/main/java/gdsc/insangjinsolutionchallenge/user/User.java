@@ -33,8 +33,8 @@ public class User extends DateEntity {
 
     private int totalScore;
 
-    //rank는 예약어라서 sql에서 오류가 난다.
-    private String ranking;
+
+    private String tier;
 
     @Enumerated(EnumType.STRING)
     private UserRole role;

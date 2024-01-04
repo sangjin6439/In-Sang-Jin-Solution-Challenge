@@ -2,6 +2,7 @@ package gdsc.insangjinsolutionchallenge.user;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,15 +24,27 @@ public class UserController {
         return userService.findUser(email);
     }
 
-    @GetMapping//DTO로 매핑 아직 안함
-    public List<User> findUsers(){
-        return userService.findUsers();
+    @GetMapping("/ranking")
+    public List<RankingUserDto> findRanking(){
+        return userService.findUsersByTotalScore();
     }
+
+    @GetMapping("/ranking/{school}")
+    public List<RankingUserDto> findSchoolRanking(@PathVariable("school") String school){
+        return userService.findUsersBySchoolWithTotalScore(school);
+    }
+
+//    @GetMapping("/ranking/school")  /*아직 손봐야함 작동 안됨*/
+//    public ResponseEntity<List<RankingUserDto>> findSchoolRanking(@RequestParam String school){
+//        return ResponseEntity.ok(userService.findUsersBySchoolWithTotalScore(school));
+//    }
+
 
     @PatchMapping("/{email}")
     public String update(@PathVariable("email") String email,@RequestBody RequestUserDto requestUserDto){
         return userService.updateUser(email,requestUserDto);
     }
+
 
     @DeleteMapping("/{email}")
     public String delete(@PathVariable("email") String email){
