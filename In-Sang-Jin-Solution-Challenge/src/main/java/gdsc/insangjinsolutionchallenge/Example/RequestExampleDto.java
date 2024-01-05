@@ -9,5 +9,6 @@ public class RequestExampleDto {
     private MultipartFile img;
     private String answer;
     private Integer score;
+    private String category;
     private String grade;
 }

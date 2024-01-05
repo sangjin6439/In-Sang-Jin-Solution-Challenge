@@ -30,6 +30,9 @@ public class Example extends DateEntity {
     private int score;
 
     @Column(nullable = false)
+    private String category;
+
+    @Column(nullable = false)
     private String grade;
 
     public static Example toEntity(RequestExampleDto requestExampleDto) {
@@ -37,6 +40,7 @@ public class Example extends DateEntity {
                 .title(requestExampleDto.getTitle())
                 .answer(requestExampleDto.getAnswer())
                 .score(requestExampleDto.getScore())
+                .category(requestExampleDto.getCategory())
                 .grade(requestExampleDto.getGrade())
                 .build();
     }
