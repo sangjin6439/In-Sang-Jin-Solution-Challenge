@@ -35,6 +35,7 @@ public class SubmissionService {
 
         if ("정답".equals(submission.getCorrect())) {
             user.addTotalScore(example.getScore());
+            user.updateTier(user.getTotalScore());
         }
 
         // 변경된 사용자 정보 저장

@@ -11,7 +11,7 @@ public class RankingUserDto {
     private String email;
     @Builder.Default
     private Integer totalScore = 0;
-    private String tier;
+    private UserTier tier;
 
 
 }

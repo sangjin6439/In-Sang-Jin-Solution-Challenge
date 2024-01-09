@@ -3,8 +3,7 @@ package gdsc.insangjinsolutionchallenge.user;
 import gdsc.insangjinsolutionchallenge.common.DateEntity;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.Optional;
+import org.hibernate.annotations.ColumnDefault;
 
 @Entity
 @Getter
@@ -33,8 +32,9 @@ public class User extends DateEntity {
 
     private int totalScore;
 
-
-    private String tier;
+    @Enumerated(EnumType.STRING)
+//    @ColumnDefault("BRONZE")
+    private UserTier tier;
 
     @Enumerated(EnumType.STRING)
     private UserRole role;
@@ -45,6 +45,7 @@ public class User extends DateEntity {
                 .age(requestuserDto.getAge())
                 .email(requestuserDto.getEmail())
                 .school(requestuserDto.getSchool())
+                .tier(UserTier.BRONZE)
                 .role(UserRole.STUDENT)
                 .build();
     }
@@ -56,8 +57,26 @@ public class User extends DateEntity {
         this.school = requestUserDto.getSchool();
     }
 
-    // 점수 추가 메서드 //
+    // 점수 추가 메서드
     public void addTotalScore(int score) {
         this.totalScore += score;
+    }
+
+    // tier 업데이트 메서드
+    public void updateTier(int totalScore){
+        if (totalScore< 100){
+            this.tier=UserTier.BRONZE;
+        }else if(totalScore< 200){
+            this.tier=UserTier.SILVER;
+        }else if(totalScore< 300){
+            this.tier=UserTier.GOLD;
+        }else if(totalScore< 400){
+            this.tier=UserTier.PLATINUM;
+        }else if(totalScore< 500){
+            this.tier=UserTier.DIAMOND;
+        }else {
+            this.tier=UserTier.MASTER;
+        }
+
     }
 }

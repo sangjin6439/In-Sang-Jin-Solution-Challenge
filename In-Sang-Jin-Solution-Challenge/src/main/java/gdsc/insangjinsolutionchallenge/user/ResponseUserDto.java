@@ -12,7 +12,7 @@ public class ResponseUserDto {
     private Long age;
     private String email;
     private String school;
-    private String tier;
+    private UserTier tier;
     private Integer totalScore;
     private UserRole role;
     private LocalDateTime creatAt;
