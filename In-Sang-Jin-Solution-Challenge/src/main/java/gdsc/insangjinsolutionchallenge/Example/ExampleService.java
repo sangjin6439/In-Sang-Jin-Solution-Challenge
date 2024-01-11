@@ -1,7 +1,6 @@
 package gdsc.insangjinsolutionchallenge.Example;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,8 +38,8 @@ public class ExampleService {
 
     /* 정답 조회 메서드 */
     @Transactional(readOnly = true)
-    public AnswerResponseDto findAnswer(Long exampleId) {
-        return AnswerResponseDto.answerResponseDto(findById(exampleId));
+    public ResponseExampleDto findAnswer(Long exampleId) {
+        return ResponseExampleDto.answerResponseDto(findById(exampleId));
     }
 
     @Transactional

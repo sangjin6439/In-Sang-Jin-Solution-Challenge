@@ -5,12 +5,12 @@ import lombok.Data;
 
 @Data
 @Builder
-public class AnswerResponseDto {
+public class ResponseExampleDto {
 
     private String Answer;
 
-    public static AnswerResponseDto answerResponseDto(Example example){
-        return AnswerResponseDto.builder()
+    public static ResponseExampleDto answerResponseDto(Example example){
+        return ResponseExampleDto.builder()
                 .Answer(example.getAnswer())
                 .build();
     }

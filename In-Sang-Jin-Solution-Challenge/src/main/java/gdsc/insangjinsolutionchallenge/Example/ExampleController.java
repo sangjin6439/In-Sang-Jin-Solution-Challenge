@@ -1,11 +1,8 @@
 package gdsc.insangjinsolutionchallenge.Example;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -32,7 +29,7 @@ public class ExampleController {
     }
 
     @GetMapping("/answers/{id}")
-    public AnswerResponseDto findAnswer(@PathVariable("id") Long id){
+    public ResponseExampleDto findAnswer(@PathVariable("id") Long id){
         return exampleService.findAnswer(id);
     }
 
