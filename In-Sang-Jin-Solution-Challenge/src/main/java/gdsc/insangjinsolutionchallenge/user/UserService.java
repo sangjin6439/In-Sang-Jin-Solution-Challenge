@@ -1,6 +1,13 @@
 package gdsc.insangjinsolutionchallenge.user;
 
+import com.google.api.gax.rpc.UnauthenticatedException;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.auth.FirebaseToken;
+import gdsc.insangjinsolutionchallenge.exception.InvalidTokenException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,9 +22,26 @@ public class UserService {
     private final UserRepository userRepository;
 
     @Transactional
-    public String saveUser(RequestUserDto requestUserDto) {
-        userRepository.save(User.toEntity(requestUserDto));
+    public String verifyTokenAndSaveUser(String token, RequestUserDto requestUserDto) {
+        String idToken = token.substring(7); //Bearer 제거
+        try{
+            FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(idToken);
+            String uid = decodedToken.getUid();
+            String email = decodedToken.getEmail();
+            User user = User.toEntity(requestUserDto);
+            //FirebaseUid 저장
+            user.addFirebaseUid(uid,email);
+            userRepository.save(user);
+        }catch (FirebaseAuthException e){
+            //토큰 검증 실패
+            throw new InvalidTokenException("Invalid token");
+        }
         return "저장 완료!";
+    }
+    @Transactional
+    public String saveEx(RequestUserDto requestUserDto){
+        userRepository.save(User.toEntity(requestUserDto));
+        return "저장 완료";
     }
 
     @Transactional(readOnly = true)
@@ -56,6 +80,8 @@ public class UserService {
         userRepository.delete(findUserByEmail(email));
         return "삭제 완료!";
     }
+
+
 
     private User findUserByEmail(String email) {
         return userRepository.findUserByEmail(email).orElseThrow(() -> new IllegalArgumentException("이메일을 확인해 주세요."));

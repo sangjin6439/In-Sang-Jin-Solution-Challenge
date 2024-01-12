@@ -38,12 +38,11 @@ public class SecurityConfig {
     }
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        // 회원가입, 메인페이지, 리소스
+        // /users이거는 post만 인증안함 /submissions/examples로 시작하는 url은 인증안함
         return (web) -> web.ignoring().requestMatchers(HttpMethod.POST,"/users")
-                .requestMatchers("/")
-                .requestMatchers("/resources/**");
+                .requestMatchers("/submissions/**")
+                .requestMatchers("/examples/**");
     }
-
 
 
 }

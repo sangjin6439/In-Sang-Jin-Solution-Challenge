@@ -1,10 +1,15 @@
 package gdsc.insangjinsolutionchallenge.user;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.auth.FirebaseToken;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -14,40 +19,43 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostMapping
-    public String save(@RequestBody RequestUserDto requestuserDto){
-        return userService.saveUser(requestuserDto);
+
+//    @PostMapping
+//    public String save(@RequestHeader("Authorization") String token, @RequestBody RequestUserDto requestUserDto) {
+//        return userService.verifyTokenAndSaveUser(token, requestUserDto);
+//    }
+//    @PostMapping //인증 없는 테스트용
+    public String saveEx(@RequestBody RequestUserDto requestUserDto){
+        return userService.saveEx(requestUserDto);
     }
 
+                //    @GetMapping("/me")
+                //    public ResponseUserDto find(@PathVariable)
+
     @GetMapping("/{email}")
-    public ResponseUserDto find(@PathVariable("email") String email){  //("email")명시하기!
+    public ResponseUserDto find(@PathVariable("email") String email) {  //("email")명시하기!
         return userService.findUser(email);
     }
 
     @GetMapping("/ranking")
-    public List<RankingUserDto> findRanking(){
+    public List<RankingUserDto> findRanking() {
         return userService.findUsersByTotalScore();
     }
 
     @GetMapping("/ranking/{school}")
-    public List<RankingUserDto> findSchoolRanking(@PathVariable("school") String school){
+    public List<RankingUserDto> findSchoolRanking(@PathVariable("school") String school) {
         return userService.findUsersBySchoolWithTotalScore(school);
     }
 
-//    @GetMapping("/ranking/school")  /*아직 손봐야함 작동 안됨*/
-//    public ResponseEntity<List<RankingUserDto>> findSchoolRanking(@RequestParam String school){
-//        return ResponseEntity.ok(userService.findUsersBySchoolWithTotalScore(school));
-//    }
-
 
     @PatchMapping("/{email}")
-    public String update(@PathVariable("email") String email,@RequestBody RequestUserDto requestUserDto){
-        return userService.updateUser(email,requestUserDto);
+    public String update(@PathVariable("email") String email, @RequestBody RequestUserDto requestUserDto) {
+        return userService.updateUser(email, requestUserDto);
     }
 
 
     @DeleteMapping("/{email}")
-    public String delete(@PathVariable("email") String email){
+    public String delete(@PathVariable("email") String email) {
         return userService.deleteUser(email);
     }
 

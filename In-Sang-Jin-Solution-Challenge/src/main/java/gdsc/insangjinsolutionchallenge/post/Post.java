@@ -1,5 +1,6 @@
 package gdsc.insangjinsolutionchallenge.post;
 
+import gdsc.insangjinsolutionchallenge.common.DateEntity;
 import gdsc.insangjinsolutionchallenge.user.User;
 import jakarta.persistence.*;
 import lombok.*;
@@ -9,7 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 @Getter
-public class Post {
+public class Post extends DateEntity {
 
     @Id
     @GeneratedValue

@@ -18,13 +18,16 @@ public class User extends DateEntity {
     @Column(name = "user_id")
     private Long id;
 
+//    @Column(nullable = false)
+    private String firebaseUid;
+
     @Column(nullable = false)
     private String name;
 
     @Column(nullable = false)
     private Long age;
 
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private String email;
 
     @Column(nullable = false)
@@ -43,7 +46,6 @@ public class User extends DateEntity {
         return User.builder()
                 .name(requestuserDto.getName())
                 .age(requestuserDto.getAge())
-                .email(requestuserDto.getEmail())
                 .school(requestuserDto.getSchool())
                 .tier(UserTier.BRONZE)
                 .role(UserRole.STUDENT)
@@ -57,6 +59,11 @@ public class User extends DateEntity {
         this.school = requestUserDto.getSchool();
     }
 
+    //id추가 메서드
+    public void addFirebaseUid(String token,String email){
+        User.builder().firebaseUid(token)
+                .email(email).build();
+    }
     // 점수 추가 메서드
     public void addTotalScore(int score) {
         this.totalScore += score;
