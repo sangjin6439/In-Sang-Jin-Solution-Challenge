@@ -3,6 +3,7 @@ package gdsc.insangjinsolutionchallenge.user;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -14,16 +15,18 @@ public class UserController {
 
 
 //    @PostMapping
-//    public String save(@RequestHeader("Authorization") String token, @RequestBody RequestUserDto requestUserDto) {
+//    public String saveFirebase(@RequestHeader("Authorization") String token, @RequestBody RequestUserDto requestUserDto) {
 //        return userService.verifyTokenAndSaveUser(token, requestUserDto);
 //    }
-//    @PostMapping //인증 없는 테스트용
-    public String saveEx(@RequestBody RequestUserDto requestUserDto){
-        return userService.saveEx(requestUserDto);
+    @PatchMapping("add/info") //추가 정보 입력, 부분적인 사항만 저정할 때에는 patch를 써야함. put을 쓰면 모든 엔티티의 값을 넣어야함
+    public String saveEx(Principal principal, @RequestBody RequestUserDto requestUserDto){
+        return userService.saveEx(principal, requestUserDto);
     }
 
-                //    @GetMapping("/me")
-                //    public ResponseUserDto find(@PathVariable)
+    @GetMapping("/my/info")
+    public ResponseUserDto myInfo(Principal principal){
+        return userService.findMyInfo(principal);
+    }
 
     @GetMapping("/{email}")
     public ResponseUserDto find(@PathVariable("email") String email) {  //("email")명시하기!
@@ -41,15 +44,9 @@ public class UserController {
     }
 
 
-    @PatchMapping("/{email}")
-    public String update(@PathVariable("email") String email, @RequestBody RequestUserDto requestUserDto) {
-        return userService.updateUser(email, requestUserDto);
-    }
-
-
-    @DeleteMapping("/{email}")
-    public String delete(@PathVariable("email") String email) {
-        return userService.deleteUser(email);
+    @DeleteMapping("/delete/info")
+    public String delete(Principal principal) {
+        return userService.deleteUser(principal);
     }
 
 }

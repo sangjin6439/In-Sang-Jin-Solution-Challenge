@@ -30,8 +30,7 @@ public class SecurityConfig {
                 .formLogin(AbstractHttpConfigurer::disable)
                 .logout(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
-                        //requestMatchers연속으로 사용가능
-//                       requestMatchers("/login/oauth2/**", “api/v1", "**").permitAll()
+                        //requestMatchers 연속으로 사용 가능
                         .requestMatchers("/login/oauth2/**").permitAll()
                         .requestMatchers("/test").authenticated()
 //                      .requestMatchers("/examples/**").permitAll()

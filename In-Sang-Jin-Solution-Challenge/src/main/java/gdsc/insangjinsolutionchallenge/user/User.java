@@ -16,18 +16,16 @@ public class User extends DateEntity {
     @Column(name = "user_id")
     private Long id;
 
-    //    @Column(nullable = false)
+    //@Column(nullable = false)
     private String firebaseUid;
 
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private String name;
 
-
-    private Long age;
-
-    //@Column(nullable = false)
+//    @Column(nullable = false)
     private String email;
 
+    private Long age;
 
     private String school;
 
@@ -43,7 +41,6 @@ public class User extends DateEntity {
 
     public static User toEntity(RequestUserDto requestuserDto) {
         return User.builder()
-                .name(requestuserDto.getName())
                 .age(requestuserDto.getAge())
                 .school(requestuserDto.getSchool())
                 .tier(1)
@@ -54,7 +51,6 @@ public class User extends DateEntity {
 
     // 이름, 나이, 학교 바꿀 수 있게 열어둠
     public void update(RequestUserDto requestUserDto) {
-        this.name = requestUserDto.getName();
         this.age = requestUserDto.getAge();
         this.school = requestUserDto.getSchool();
     }

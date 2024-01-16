@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,24 +22,31 @@ public class UserService {
     @Transactional
     public String verifyTokenAndSaveUser(String token, RequestUserDto requestUserDto) {
         String idToken = token.substring(7); //Bearer 제거
-        try{
+        try {
             FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(idToken);
             String uid = decodedToken.getUid();
             String email = decodedToken.getEmail();
             User user = User.toEntity(requestUserDto);
             //FirebaseUid 저장
-            user.addFirebaseUid(uid,email);
+            user.addFirebaseUid(uid, email);
             userRepository.save(user);
-        }catch (FirebaseAuthException e){
+        } catch (FirebaseAuthException e) {
             //토큰 검증 실패
             throw new InvalidTokenException("Invalid token");
         }
         return "저장 완료!";
     }
-    @Transactional
-    public String saveEx(RequestUserDto requestUserDto){
-        userRepository.save(User.toEntity(requestUserDto));
+
+    @Transactional //추가 정보 입력
+    public String saveEx(Principal principal, RequestUserDto requestUserDto) {
+        User user = findUserById(Long.valueOf(principal.getName()));
+        user.update(requestUserDto);
         return "저장 완료";
+    }
+
+    @Transactional(readOnly = true)
+    public ResponseUserDto findMyInfo(Principal principal) {
+        return ResponseUserDto.toDto(findUserById(Long.valueOf(principal.getName())));
     }
 
     @Transactional(readOnly = true)
@@ -46,26 +54,18 @@ public class UserService {
         return ResponseUserDto.toDto(findUserByEmail(email));
     }
 
+
+
     @Transactional(readOnly = true)
     public List<User> findUsers() {
         return userRepository.findAll();
     }
 
     @Transactional(readOnly = true)
-    public List<RankingUserDto> findUsersByTotalScore(){
+    public List<RankingUserDto> findUsersByTotalScore() {
         List<User> userList = userRepository.findUsersByTotalScore();
         return getRankingUserDtos(userList);
     }
-//    private TemplateResponse.UserResponse findUser(String token){
-//        try{
-//            FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(idToken);
-//            String email = decodedToken.getEmail();
-//        }catch (FirebaseAuthException e){
-//            //토큰 검증 실패
-//            throw new InvalidTokenException("Invalid token");
-//        }
-//        return UserReuserRepository.findUserByEmail(email);
-//    }
 
 
     @Transactional(readOnly = true)
@@ -75,20 +75,22 @@ public class UserService {
 
     }
 
-    @Transactional
-    public String updateUser(String email, RequestUserDto requestUserDto) {
-        User user = findUserByEmail(email);
-        user.update(requestUserDto);
-        return "수정 완료!";
-    }
+//    @Transactional
+//    public String updateUser(Long id, RequestUserDto requestUserDto) {
+//        User user = findUserById(id);
+//        user.update(requestUserDto);
+//        return "수정 완료!";
+//    }
 
     @Transactional
-    public String deleteUser(String email) {
-        userRepository.delete(findUserByEmail(email));
+    public String deleteUser(Principal principal) {
+        userRepository.delete(findUserById(Long.valueOf(principal.getName())));
         return "삭제 완료!";
     }
 
-
+    private User findUserById(Long id) {
+        return userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("아이디를 확인해 주세요."));
+    }
 
     private User findUserByEmail(String email) {
         return userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("이메일을 확인해 주세요."));
