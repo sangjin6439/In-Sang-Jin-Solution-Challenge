@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
-import java.security.Principal;
 import java.util.Map;
 
 @Service
@@ -26,19 +25,19 @@ public class AuthService {
     @Value("${client_secret}")
     private String GOOGLE_CLIENT_SECRET;
 
-    private final String GOOGLE_REDIRECT_URI = "http://localhost:8080/login/oauth2/google";
-
+    public final String GOOGLE_STUDENT_REDIRECT_URI = "http://localhost:8080/login/oauth2/google/student";
+    public final String GOOGLE_TEACHER_REDIRECT_URI = "http://localhost:8080/login/oauth2/google/teacher";
     private final UserRepository userRepository;
     private final TokenProvider tokenProvider;
 
-    public String getGoogleAccessToken(String code) {
+    public String getGoogleAccessToken(String code, String redirectUri) {
         RestTemplate restTemplate = new RestTemplate();
         Map<String, String> params = Map.of(
                 "code", code,
                 "scope", "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email",
                 "client_id", GOOGLE_CLIENT_ID,
                 "client_secret", GOOGLE_CLIENT_SECRET,
-                "redirect_uri", GOOGLE_REDIRECT_URI,
+                "redirect_uri", redirectUri,
                 "grant_type", "authorization_code"
         );
 
@@ -56,7 +55,7 @@ public class AuthService {
     }
 
     @Transactional
-    public Token loginOrSignUp(String googleAccessToken) {
+    public Token loginOrSignUp(String googleAccessToken, Role role) {
         UserInfo userInfo = getUserInfo(googleAccessToken);
 
         if (!userInfo.getVerifiedEmail()) {
@@ -68,7 +67,7 @@ public class AuthService {
                         .email(userInfo.getEmail())
                         .name(userInfo.getName())
                         .pictureUrl(userInfo.getPictureUrl())
-                        .role(Role.STUDENT) // 최초 가입시 USER로 설정, 원하는 대로 변경할 수 있는 응용력 필요
+                        .role(role)
                         .build())
         );
 
@@ -94,12 +93,5 @@ public class AuthService {
 
         throw new RuntimeException("유저 정보를 가져오는데 실패했습니다.");
     }
-
-
-    public User test(Principal principal) {
-        Long id = Long.parseLong(principal.getName());
-
-        return userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("유저를 찾을 수 없습니다."));
-    }
 }
+

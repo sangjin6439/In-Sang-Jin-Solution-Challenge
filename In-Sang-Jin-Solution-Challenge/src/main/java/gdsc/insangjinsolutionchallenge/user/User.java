@@ -37,6 +37,7 @@ public class User extends DateEntity {
     private int level;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Role role;
 
     public static User toEntity(RequestUserDto requestuserDto) {
@@ -45,7 +46,6 @@ public class User extends DateEntity {
                 .school(requestuserDto.getSchool())
                 .level(1)
                 .totalScore(0)
-                .role(Role.STUDENT)
                 .build();
     }
 
