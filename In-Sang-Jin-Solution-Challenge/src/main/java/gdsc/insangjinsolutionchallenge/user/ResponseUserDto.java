@@ -13,7 +13,7 @@ public class ResponseUserDto {
     private String email;
     private String school;
     private String pictureUrl;
-    private Integer tier;
+    private Integer level;
     private Integer totalScore;
     private Role role;
     private LocalDateTime creatAt;
@@ -28,7 +28,7 @@ public class ResponseUserDto {
                 .school(user.getSchool())
                 .pictureUrl(user.getPictureUrl())
                 .totalScore(user.getTotalScore())
-                .tier(user.getTier())
+                .level(user.getLevel())
                 .role(user.getRole())
                 .creatAt(user.getCreateAt())
                 .updateAt(user.getUpdateAt())

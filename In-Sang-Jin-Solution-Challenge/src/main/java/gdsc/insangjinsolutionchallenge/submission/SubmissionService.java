@@ -31,17 +31,23 @@ public class SubmissionService {
                 .userAnswer(requestSubmissionDto.getUserAnswer())
                 .build();
 
+        if (submission.isCorrect()) {
+            user.addTotalScoreAndUpdateLevel(example.getScore());
+        }
         submission.setCorrect(submission.checkAnswer(example));
 
-        if ("정답".equals(submission.getCorrect())) {
-            user.addTotalScore(example.getScore());
-            user.updateTier(user.getTotalScore());
-        }
+        submissionRepository.save(submission);
 
-        // 변경된 사용자 정보 저장
-        userRepository.save(user);
+        int totalSubmissions = example.getSubmissions().size();
 
-        return submissionRepository.save(submission);
+        int correctSubmissions = (int) example.getSubmissions().stream()
+                .filter(Submission::isCorrect)
+                .count();
+        System.out.println(correctSubmissions);
+        double correctPercentage = ((double) correctSubmissions / totalSubmissions) * 100;
+        example.saveCorrectPercentage(correctPercentage);
+
+        return submission;
     }
 
 
@@ -49,8 +55,10 @@ public class SubmissionService {
     public ResponseSubmission findSubmission(Long submissionId) {
         Submission submission = findById(submissionId);
         return ResponseSubmission.builder()
+                .id(submission.getId())
+                .exampleId(submission.getExample().getId())
                 .userAnswer(submission.getUserAnswer())
-                .correct(submission.getCorrect())
+                .correct(submission.isCorrect())
                 .createAt(submission.getCreateAt())
                 .build();
     }

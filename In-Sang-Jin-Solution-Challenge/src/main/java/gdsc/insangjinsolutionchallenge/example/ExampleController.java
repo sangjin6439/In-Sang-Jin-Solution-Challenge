@@ -19,19 +19,15 @@ public class ExampleController {
     }
 
     @GetMapping("/{id}")
-    public WithOutAnswerResponseExampleDto find(@PathVariable("id") Long id){
+    public ResponseExampleDto find(@PathVariable("id") Long id){
         return exampleService.findExample(id);
     }
 
-    @GetMapping //DTO로 매핑 해야함
+    @GetMapping("/all") //DTO로 매핑 해야함-> 카테고리별로 나누고 페이징해야함
     public List<Example> findAll(){
         return exampleService.findExamples();
     }
 
-    @GetMapping("/answers/{id}")
-    public ResponseExampleDto findAnswer(@PathVariable("id") Long id){
-        return exampleService.findAnswer(id);
-    }
 
     @PatchMapping("/{id}")
     public String update(@PathVariable("id") Long id, RequestExampleDto requestExampleDto) throws IOException {

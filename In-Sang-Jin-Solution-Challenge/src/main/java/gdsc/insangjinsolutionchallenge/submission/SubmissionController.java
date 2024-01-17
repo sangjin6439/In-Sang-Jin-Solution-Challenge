@@ -13,19 +13,19 @@ public class SubmissionController {
 
     private final SubmissionService submissionService;
 
-    @PostMapping
+    @PostMapping("/save")
     public Submission save(Principal principal, @RequestBody RequestSubmissionDto requestSubmissionDto){
         principal.getName();
         return submissionService.saveSubmission(requestSubmissionDto);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/find/{id}")
     public ResponseSubmission find(@PathVariable("id") Long id){
         return submissionService.findSubmission(id);
     }
 
 
-    @GetMapping("/all")
+    @GetMapping("/find/all")
     public List<Submission> findAll(){
         return submissionService.findAll();
     }

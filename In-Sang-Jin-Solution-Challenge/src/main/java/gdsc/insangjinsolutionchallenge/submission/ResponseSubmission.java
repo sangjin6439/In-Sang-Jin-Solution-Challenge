@@ -9,9 +9,10 @@ import java.time.LocalDateTime;
 @Builder
 public class ResponseSubmission {
 
-    private Long Id;
+    private Long id;
+    private Long exampleId;
     private String userAnswer;
-    private String correct;
+    private Boolean correct;
     private LocalDateTime createAt;
 
 }

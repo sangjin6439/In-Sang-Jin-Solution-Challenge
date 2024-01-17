@@ -104,7 +104,7 @@ public class UserService {
                     .name(user.getName())
                     .email(user.getEmail())
                     .totalScore(user.getTotalScore())
-                    .tier(user.getTier())
+                    .level(user.getLevel())
                     .build();
             rankingUserDtos.add(rankingUserDto);
         }

@@ -1,8 +1,13 @@
 package gdsc.insangjinsolutionchallenge.example;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import gdsc.insangjinsolutionchallenge.common.DateEntity;
+import gdsc.insangjinsolutionchallenge.submission.Submission;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -14,6 +19,7 @@ public class Example extends DateEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "example_id")
     private Long id;
 
     @Column(nullable = false)
@@ -23,7 +29,15 @@ public class Example extends DateEntity {
     private String imgPath;
 
     @Column(nullable = false)
-    private String answer;
+    private String correct;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "example", cascade = CascadeType.ALL)
+    private List<Submission> submissions = new ArrayList<>();
+
+    //정답률
+    @Column(name = "correct_percentage")
+    private double correctPercentage;
 
     @Column(nullable = false)
     private int score;
@@ -36,8 +50,10 @@ public class Example extends DateEntity {
 
     public static Example toEntity(RequestExampleDto requestExampleDto) {
         return Example.builder()
+
                 .title(requestExampleDto.getTitle())
-                .answer(requestExampleDto.getAnswer())
+                .correct(requestExampleDto.getCorrect())
+//                .correctPercentage(0)
                 .score(requestExampleDto.getScore())
                 .category(requestExampleDto.getCategory())
                 .grade(requestExampleDto.getGrade())
@@ -48,11 +64,16 @@ public class Example extends DateEntity {
         this.imgPath = imgPath;
     }
 
+    public void saveCorrectPercentage(double correctPercentage){
+        this.correctPercentage=correctPercentage;
+    }
+
     public void update(RequestExampleDto requestExampleDto) {
         this.title = requestExampleDto.getTitle();
-        this.answer = requestExampleDto.getAnswer();
+        this.correct = requestExampleDto.getCorrect();
         this.score = requestExampleDto.getScore();
         this.grade = requestExampleDto.getGrade();
     }
+
 
 }

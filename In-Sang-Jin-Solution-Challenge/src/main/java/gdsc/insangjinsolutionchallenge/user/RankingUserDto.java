@@ -10,5 +10,5 @@ public class RankingUserDto {
     private String name;
     private String email;
     private Integer totalScore;
-    private int tier;
+    private int level;
 }

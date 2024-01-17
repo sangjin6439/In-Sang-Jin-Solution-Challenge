@@ -34,7 +34,7 @@ public class User extends DateEntity {
     private int totalScore;
 
     //buider 패턴으로 기본값을 1로 설정
-    private int tier;
+    private int level;
 
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -43,7 +43,7 @@ public class User extends DateEntity {
         return User.builder()
                 .age(requestuserDto.getAge())
                 .school(requestuserDto.getSchool())
-                .tier(1)
+                .level(1)
                 .totalScore(0)
                 .role(Role.STUDENT)
                 .build();
@@ -61,14 +61,10 @@ public class User extends DateEntity {
                 .email(email).build();
     }
 
-    // 점수 추가 메서드
-    public void addTotalScore(int score) {
+    //점수 획득 및 레벨 상승
+    public void addTotalScoreAndUpdateLevel(int score) {
         this.totalScore += score;
+        this.level = (this.totalScore / 100);
     }
 
-    // tier 업데이트 메서드
-    public void updateTier(int totalScore) {
-
-        this.tier = (totalScore % 100);
-    }
 }

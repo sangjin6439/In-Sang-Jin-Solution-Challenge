@@ -52,7 +52,7 @@ public class AuthService {
                     .getAccessToken();
         }
 
-        throw new RuntimeException("구글 엑세스 토큰을 가져오는데 실패했습니다.");
+        throw new RuntimeException("구글 엑세스 토큰을 가져 오는데 실패했습니다.");
     }
 
     @Transactional

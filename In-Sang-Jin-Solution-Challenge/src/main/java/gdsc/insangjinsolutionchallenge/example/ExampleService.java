@@ -19,28 +19,42 @@ public class ExampleService {
 
         Example example = Example.toEntity(requestExampleDto);
         example.saveImgPath(fileService.saveFile(requestExampleDto.getImg()));
+
         exampleRepository.save(example);
         return example;
+
     }
 
-    /* 문제 조회 메서드 (정답x)*/
+    /* 문제 조회 메서드 */
     @Transactional(readOnly = true)
-    public WithOutAnswerResponseExampleDto findExample(Long exampleId) {
+    public ResponseExampleDto findExample(Long exampleId) {
         Example example = findById(exampleId);
-        WithOutAnswerResponseExampleDto responseExampleDto = WithOutAnswerResponseExampleDto.toDto(example);
+        ResponseExampleDto responseExampleDto = ResponseExampleDto.toDto(example);
         return responseExampleDto;
     }
 
     @Transactional(readOnly = true)
     public List<Example> findExamples() {
+//        int totalSubmissions = Optional.ofNullable(example.getSubmissions())
+//                .map(List::size)
+//                .orElse(0);
+//        if(totalSubmissions==0){
+//            example.saveCorrectPercentage(0);
+//        }else {
+//            int correctSubmissions = (int) example.getSubmissions().stream()
+//                    .filter(Submission::isCorrect)
+//                    .count();
+//            int correctPercentage = correctSubmissions / totalSubmissions;
+//            example.saveCorrectPercentage(correctPercentage);
+//        }
         return exampleRepository.findAll();
     }
 
-    /* 정답 조회 메서드 */
-    @Transactional(readOnly = true)
-    public ResponseExampleDto findAnswer(Long exampleId) {
-        return ResponseExampleDto.answerResponseDto(findById(exampleId));
-    }
+//    /* 정답 조회 메서드 */
+//    @Transactional(readOnly = true)
+//    public CorrectExampleDto findAnswer(Long exampleId) {
+//        return CorrectExampleDto.answerResponseDto(findById(exampleId));
+//    }
 
     @Transactional
     public String updateExample(Long exampleId, RequestExampleDto requestExampleDto) throws IOException {
@@ -60,5 +74,7 @@ public class ExampleService {
         return exampleRepository.findById(exampleId)
                 .orElseThrow(() -> new IllegalArgumentException("문제 번호를 확인해 주세요"));
     }
+
+
 
 }

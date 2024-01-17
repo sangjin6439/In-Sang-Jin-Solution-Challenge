@@ -21,7 +21,7 @@ public class Submission extends DateEntity {
     @Column(nullable = false)
     private String userAnswer;
 
-    private String correct;
+    private boolean correct;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -33,15 +33,15 @@ public class Submission extends DateEntity {
 
 
     // 정답 확인 메서드
-    public String checkAnswer(Example example) {
-        if (example.getAnswer().equals(userAnswer)) {
-            return correct = "정답";
+    public boolean checkAnswer(Example example) {
+        if (example.getCorrect().equals(userAnswer)) {
+            return correct = true;
         } else {
-            return correct = "오답";
+            return correct = false;
         }
     }
 
-    public void setCorrect(String correct) {
+    public void setCorrect(boolean correct) {
         this.correct = correct;
     }
 }
