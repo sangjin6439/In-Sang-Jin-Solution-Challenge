@@ -18,7 +18,7 @@ public class UserController {
 //    public String saveFirebase(@RequestHeader("Authorization") String token, @RequestBody RequestUserDto requestUserDto) {
 //        return userService.verifyTokenAndSaveUser(token, requestUserDto);
 //    }
-    @PatchMapping("add/info") //추가 정보 입력, 부분적인 사항만 저정할 때에는 patch를 써야함. put을 쓰면 모든 엔티티의 값을 넣어야함
+    @PostMapping("add/info") //추가 정보 입력, 부분적인 사항만 저정할 때에는 patch를 써야함. put을 쓰면 모든 엔티티의 값을 넣어야함
     public String saveEx(Principal principal, @RequestBody RequestUserDto requestUserDto){
         return userService.saveEx(principal, requestUserDto);
     }

@@ -53,7 +53,6 @@ public class Example extends DateEntity {
 
                 .title(requestExampleDto.getTitle())
                 .correct(requestExampleDto.getCorrect())
-//                .correctPercentage(0)
                 .score(requestExampleDto.getScore())
                 .category(requestExampleDto.getCategory())
                 .grade(requestExampleDto.getGrade())
