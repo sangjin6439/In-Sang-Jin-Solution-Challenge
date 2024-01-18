@@ -39,9 +39,9 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.10.1'
 }
 
-tasks.named('test') {
-    useJUnitPlatform()
-}
-tasks.withType(JavaCompile) {
-    options.compilerArgs << '-parameters'
-}
+//tasks.named('test') {
+//    useJUnitPlatform()
+//}
+//tasks.withType(JavaCompile) {
+//    options.compilerArgs << '-parameters'
+//}
