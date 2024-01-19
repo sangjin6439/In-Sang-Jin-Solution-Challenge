@@ -16,7 +16,8 @@ import java.util.List;
 public class Post extends DateEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "post_id")
     private Long id;
 
     @Column(nullable = false)
@@ -28,6 +29,7 @@ public class Post extends DateEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+
 
     @OneToMany(mappedBy = "post",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Comment> comment;

@@ -25,6 +25,9 @@ public class Example extends DateEntity {
     private String title;
 
     @Column(nullable = false)
+    private String content;
+
+    @Column(nullable = false)
     private String imgPath;
 
     @Column(nullable = false)
@@ -51,6 +54,7 @@ public class Example extends DateEntity {
         return Example.builder()
 
                 .title(requestExampleDto.getTitle())
+                .content(requestExampleDto.getContent())
                 .correct(requestExampleDto.getCorrect())
                 .score(requestExampleDto.getScore())
                 .category(requestExampleDto.getCategory())
@@ -68,6 +72,7 @@ public class Example extends DateEntity {
 
     public void update(RequestExampleDto requestExampleDto) {
         this.title = requestExampleDto.getTitle();
+        this.content = requestExampleDto.getContent();
         this.correct = requestExampleDto.getCorrect();
         this.score = requestExampleDto.getScore();
         this.grade = requestExampleDto.getGrade();

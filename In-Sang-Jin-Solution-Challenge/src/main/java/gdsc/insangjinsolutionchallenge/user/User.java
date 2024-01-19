@@ -25,6 +25,9 @@ public class User extends DateEntity {
 //    @Column(nullable = false)
     private String email;
 
+    //받아 오는거 추가해야함
+    private String address;
+
     private Long age;
 
     private String school;

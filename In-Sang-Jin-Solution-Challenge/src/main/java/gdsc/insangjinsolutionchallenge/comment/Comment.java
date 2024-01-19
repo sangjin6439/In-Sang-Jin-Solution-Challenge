@@ -1,15 +1,20 @@
 package gdsc.insangjinsolutionchallenge.comment;
 
+import gdsc.insangjinsolutionchallenge.common.DateEntity;
 import gdsc.insangjinsolutionchallenge.post.Post;
 import gdsc.insangjinsolutionchallenge.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Comment {
+@Getter
+public class Comment extends DateEntity {
 
     @Id
     @GeneratedValue
@@ -24,4 +29,10 @@ public class Comment {
 
     @Column(nullable = false)
     private String content;
+
+    public static Comment toEntity(RequestCommentDto requestCommentDto){
+       return Comment.builder()
+                .content(requestCommentDto.getContent())
+                .build();
+    }
 }
