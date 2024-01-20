@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -16,6 +17,7 @@ public class PostService {
     private final PostRepository postRepository;
     private final CommentService commentService;
     private final UserRepository userRepository;
+
     @Transactional
     public String save(RequestPostDto requestPostDto){
         User user = userRepository.findById(requestPostDto.getUserId())
@@ -26,7 +28,46 @@ public class PostService {
                 .content(requestPostDto.getContent())
                 .user(user)
                 .build();
+        postRepository.save(post);
         return "저장 완료!";
+    }
+
+    @Transactional(readOnly = true)
+    public List<ResponsePostDtoWithOutComment> findAll(){
+        List<Post> posts = postRepository.findAll();
+        List<ResponsePostDtoWithOutComment> responsePostDtos = new ArrayList<>();
+
+        for (Post post : posts) {
+            ResponsePostDtoWithOutComment responsePostDto = ResponsePostDtoWithOutComment.builder()
+                    .id(post.getId())
+                    .title(post.getTitle())
+                    .content(post.getContent())
+                    .userName(post.getUser().getName())
+                    .userLevel(post.getUser().getLevel())
+                    .creatAt(post.getCreateAt())
+                    .build();
+            responsePostDtos.add(responsePostDto);
+        }
+        return responsePostDtos;
+    }
+    // 검색어로 검색
+    @Transactional(readOnly = true)
+    public List<ResponsePostDtoWithOutComment> findSearchTerm(String searchTerm){
+        List<Post> posts = postRepository.findByTitleContaining(searchTerm);
+        List<ResponsePostDtoWithOutComment> responsePostDtos = new ArrayList<>();
+
+        for (Post post : posts) {
+            ResponsePostDtoWithOutComment responsePostDto = ResponsePostDtoWithOutComment.builder()
+                    .id(post.getId())
+                    .title(post.getTitle())
+                    .content(post.getContent())
+                    .userName(post.getUser().getName())
+                    .userLevel(post.getUser().getLevel())
+                    .creatAt(post.getCreateAt())
+                    .build();
+            responsePostDtos.add(responsePostDto);
+        }
+        return responsePostDtos;
     }
 
     @Transactional(readOnly = true)
@@ -36,6 +77,7 @@ public class PostService {
         ResponsePostDto responsePostDto = ResponsePostDto.builder()
                 .id(post.getId())
                 .title(post.getTitle())
+                .content(post.getContent())
                 .userName(post.getUser().getName())
                 .userLevel(post.getUser().getLevel())
                 .comments(commentDtos)

@@ -31,12 +31,15 @@ public class SubmissionService {
                 .userAnswer(requestSubmissionDto.getUserAnswer())
                 .build();
 
+        submission.setCorrect(submission.checkAnswer(example));
+
         if (submission.isCorrect()) {
             user.addTotalScoreAndUpdateLevel(example.getScore());
         }
-        submission.setCorrect(submission.checkAnswer(example));
-
         submissionRepository.save(submission);
+
+
+        userRepository.save(user);
 
         int totalSubmissions = example.getSubmissions().size();
 

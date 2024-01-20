@@ -1,5 +1,6 @@
 package gdsc.insangjinsolutionchallenge.example;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import gdsc.insangjinsolutionchallenge.common.DateEntity;
 import gdsc.insangjinsolutionchallenge.submission.Submission;
 import jakarta.persistence.*;
@@ -33,7 +34,7 @@ public class Example extends DateEntity {
     @Column(nullable = false)
     private String correct;
 
-//    @JsonIgnore
+    @JsonIgnore
     @OneToMany(mappedBy = "example", cascade = CascadeType.ALL)
     private List<Submission> submissions = new ArrayList<>();
 

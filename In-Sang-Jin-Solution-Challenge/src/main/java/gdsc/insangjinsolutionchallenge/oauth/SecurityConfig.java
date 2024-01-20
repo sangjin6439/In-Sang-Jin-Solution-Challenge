@@ -32,7 +32,7 @@ public class SecurityConfig {
                 .logout(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                         //requestMatchers 연속으로 사용 가능
-                        .requestMatchers("/login/oauth2/google/**").permitAll()
+                        .requestMatchers("/login/oauth2/google/**","/comments/**","posts/**").permitAll()
                         .requestMatchers(HttpMethod.POST,"/examples/**").hasAuthority("TEACHER")
                         .requestMatchers(HttpMethod.DELETE,"/examples/**").hasAuthority("TEACHER")
                         .requestMatchers(HttpMethod.PATCH,"/examples/**").hasAuthority("TEACHER")

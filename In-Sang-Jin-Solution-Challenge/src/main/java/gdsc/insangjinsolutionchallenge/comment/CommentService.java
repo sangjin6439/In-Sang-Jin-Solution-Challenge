@@ -41,6 +41,7 @@ public class CommentService {
                     .id(comment.getId())
                     .userName(comment.getUser().getName())
                     .userLevel(comment.getUser().getLevel())
+                    .content(comment.getContent())
                     .creatAt(comment.getCreateAt())
                     .build();
             commentDtos.add(responseCommentDto);
