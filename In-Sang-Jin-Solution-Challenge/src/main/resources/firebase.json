@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "solutionchallenge-lighthouse",
+  "private_key_id": "2be3681c045924508e313a080ad0563d2dd9fd7b",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCHjpqcH8YWGo42\ngk9x4Amzn5UO1CUo3nHVhx9JwlmHo+pCvJWPI2XYi9++stMTeXG2eoDPrSK0pIwd\n1DjZDuvoQJQBD7gnd07MHj73ntUN6cWJVVqRMoV6Mi96PQoOE4GXAun7x6mDM/wJ\nYGeQsJ6JGahxYOOGioeCIaYlucGorLs8OQqKfza8ZzIpQ8Q0wVuKHV5ZKZrGPdIa\ny7XEj/85MTqPighlxG0i/dpYOK/tQBCbcwSZa7gCDYdWr7qvIEsN/8U4epM/Naid\nEEllFcdD6BbKqr1/0dFiNEyeRmE/qc76QktVXVoMKy6vCBiAq1D+vV5V6YL/osFF\n/4w1AHtVAgMBAAECggEAG0XgKnAkGPdfzGy8UiNqoEaHpVOeZFIY4gaND3h4LdeX\nPrUVfBZ5m69MpV/yIrVo4PdVqjLhzClc/XVguJ8NbI1tmacRfHM/GccuEQDWSbXS\nZfaTwanB/BtTvQrB1qIrDPhrnhoGK10OpM5OF+jJBLlyT9lX/Y4qhE6D0IxGf8px\n6rUtlf3hyGGlTCtDI/DvbJekc3pjSg5Nh67daaiZBLYaTd3taQ9sfYLludmBf8Ks\nmWZBfD3TCuP0EzNbbS8mE5auzeS7JNEidktA8RvIzUFN0V6jfvbXGP4KJt6WpJVr\nNfFAc3mxoFeepRiV9CAVwkjwX6dzrSy8fm0jPQMNAQKBgQC9ixSr1xq0PhEfB+m4\nXJkRttrM4HcR4/cACssxyx5KCsuW9hSmfwKSTRcy64ejVyoVCH3+2GnAJJ6/CD4z\n6X+bnjZi5UVSt28pgu6j/aRRx11W4ciEp5e7r+w8CxqF3A6L+Krx4AY3gk3ojtuL\nIqxC2gAS+X/Su/BxZF786W/JgQKBgQC3FdtfXgY5T+9kw+8cVWxXbNLkCtHgHibL\nHLOel57B5uXgaJ1ryLSkSiRyvIhKLRC5UWn7dsH4USrPbcfw+35uhGGXlt6Z2+zp\n9JP/WRTKppplnZoRXJf5zMfabW7eWLkY6Crq0OjfpvkHPsIgYB8csqHPGfopK6mB\nAi8c9ylT1QKBgFOTHLU8boDlESWOlqZ85d1itA08OCRCUSnKmJfHCP76zZQtwyM6\nw4aAyWbhZXhHOb32dZ/GCrL3Mqvm1Y6MOYEDfNWUZEG5siEqo1DZyPdqIaTqf0DG\nqOfQBSjgeHxncF6VccKe1f7pzLJrMzChRDVh7EBxlMP1rGpDKIL55xmBAoGAHyyK\nkN96odGZiofOM/3bl7tA4XFyMP4RTu5RK0TX1F5Tb/WAMHUZRQwWzq6Jak/oFBXn\nvNiIyJZResZPkBnSelDyKRSYTIxk96UcehMZ9jOOAJVoQWKJwg/7S5bslNF4muQV\nQqxVqpdMuc4W0dpsEb/cy125+b6kewH7MaxoDg0CgYAl/EVrdEPMKUveAHinNUfU\nNhl2zVlIeGpNpzFZ8GlXIYRObbEFWGACXvGg1esx6FAVuVraXtPmMAlp3N3Rd6My\nm4t38CH8S0yOsq21x2ZVJ4nf3A/ltfEnUI9hw11kVLuhaGtgbXpZuP9XCh9HKQrC\nnYmTVySOcKhdLnjqC1pi1Q==\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-gwbzt@solutionchallenge-lighthouse.iam.gserviceaccount.com",
+  "client_id": "110568970269628815550",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-gwbzt%40solutionchallenge-lighthouse.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
