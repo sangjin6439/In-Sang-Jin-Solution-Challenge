@@ -1,5 +1,8 @@
 package gdsc.insangjinsolutionchallenge.example;
 
+import com.google.cloud.storage.Blob;
+import com.google.cloud.storage.Bucket;
+import com.google.firebase.cloud.StorageClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +21,7 @@ public class ExampleService {
     public Example saveExample(RequestExampleDto requestExampleDto) throws IOException {
 
         Example example = Example.toEntity(requestExampleDto);
-        example.saveImgPath(fileService.saveFile(requestExampleDto.getImg()));
+        example.saveImgPath(fileService.saveFile(requestExampleDto.getImg(),requestExampleDto.getTitle()));
 
         exampleRepository.save(example);
         return example;
@@ -60,13 +63,16 @@ public class ExampleService {
     public String updateExample(Long exampleId, RequestExampleDto requestExampleDto) throws IOException {
         Example example = findById(exampleId);
         example.update(requestExampleDto);
-        example.saveImgPath(fileService.saveFile(requestExampleDto.getImg()));
+        example.saveImgPath(fileService.saveFile(requestExampleDto.getImg(), requestExampleDto.getTitle()));
         return "수정 완료!";
     }
 
+    // 이미지 삭제가 안됨
     @Transactional
     public String deleteExample(Long exampleId) {
+        deleteFile(exampleId);
         exampleRepository.delete(findById(exampleId));
+
         return "삭제 완료!";
     }
 
@@ -76,5 +82,15 @@ public class ExampleService {
     }
 
 
+    public void deleteFile(Long exampleId) {
+        Bucket bucket = StorageClient.getInstance().bucket("solutionchallenge-lighthouse.appspot.com");
+        String blobName = findById(exampleId).getImgPath();
+        Blob blob = bucket.get(blobName);
+        if (blob != null) {
+            blob.delete();
+        } else {
+            System.out.println("No file found with the given name");
+        }
+    }
 
 }
