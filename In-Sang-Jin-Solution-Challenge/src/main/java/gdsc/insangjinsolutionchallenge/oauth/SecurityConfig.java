@@ -3,7 +3,6 @@ package gdsc.insangjinsolutionchallenge.oauth;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -32,11 +31,11 @@ public class SecurityConfig {
                 .logout(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                         //requestMatchers 연속으로 사용 가능
-                        .requestMatchers("/login/oauth2/google/**","/comments/**","posts/**").permitAll()
-                        .requestMatchers(HttpMethod.POST,"/examples/**").hasAuthority("TEACHER")
-                        .requestMatchers(HttpMethod.DELETE,"/examples/**").hasAuthority("TEACHER")
-                        .requestMatchers(HttpMethod.PATCH,"/examples/**").hasAuthority("TEACHER")
-                        .anyRequest().authenticated()
+                        .requestMatchers("/login/oauth2/google/**","/comments/**","posts/**","/examples/**").permitAll()
+//                        .requestMatchers(HttpMethod.POST,"/examples/**").hasAuthority("TEACHER")
+//                        .requestMatchers(HttpMethod.DELETE,"/examples/**").hasAuthority("TEACHER")
+//                        .requestMatchers(HttpMethod.PATCH,"/examples/**").hasAuthority("TEACHER")
+                        .anyRequest().permitAll()
                 )
                 .cors(cors -> cors.configurationSource(configurationSource()))
                 .addFilterBefore(new JwtFilter(tokenProvider), UsernamePasswordAuthenticationFilter.class)

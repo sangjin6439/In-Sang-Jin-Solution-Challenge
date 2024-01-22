@@ -6,7 +6,6 @@ import gdsc.insangjinsolutionchallenge.submission.Submission;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -34,9 +33,10 @@ public class Example extends DateEntity {
     @Column(nullable = false)
     private String correct;
 
+    //builder패턴일때 new array로 안만듬
     @JsonIgnore
     @OneToMany(mappedBy = "example", cascade = CascadeType.ALL)
-    private List<Submission> submissions = new ArrayList<>();
+    private List<Submission> submissions;
 
     //정답률
     @Column(name = "correct_percentage")
