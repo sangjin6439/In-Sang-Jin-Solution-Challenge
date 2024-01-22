@@ -7,9 +7,9 @@ spring:
           google:
             scope: profile, email # 기본값이 openid, profile, email이지만 openid를 등록하게 되면 서비스마다(카카오, 네이버) OAuth2Service를 만들어야하기 때문에 profile, email만 scope로 지정
   datasource:
-    url: ${DB_JDBC_URL}
-    username: ${DB_USER}
-    password: ${DB_PASSWORD}
+    url: jdbc:mysql://localhost:3306/test
+    username: new_user
+    password: jack0366
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     database: mysql
