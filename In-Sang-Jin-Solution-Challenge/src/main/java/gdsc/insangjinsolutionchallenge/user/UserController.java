@@ -1,6 +1,8 @@
 package gdsc.insangjinsolutionchallenge.user;
 
+import com.google.firebase.auth.FirebaseAuthException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -12,12 +14,19 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+    private  final UserService1 userService1;
+/////////////////////////
+@PostMapping("/login")
+ public ResponseEntity<UserDto> login(@RequestHeader("Authorization") String token) throws FirebaseAuthException {
+    UserDto userDto = userService1.login(token);
+    return ResponseEntity.ok(userDto);
+}
 
+    @PostMapping
+    public String saveFirebase(@RequestHeader("Authorization") String token, @RequestBody RequestUserDto requestUserDto) {
+        return userService.verifyTokenAndSaveUser(token, requestUserDto);
+    }
 
-//    @PostMapping
-//    public String saveFirebase(@RequestHeader("Authorization") String token, @RequestBody RequestUserDto requestUserDto) {
-//        return userService.verifyTokenAndSaveUser(token, requestUserDto);
-//    }
     @PostMapping("add/info") //추가 정보 입력, 부분적인 사항만 저정할 때에는 patch를 써야함. put을 쓰면 모든 엔티티의 값을 넣어야함
     public String saveEx(Principal principal, @RequestBody RequestUserDto requestUserDto){
         return userService.saveEx(principal, requestUserDto);

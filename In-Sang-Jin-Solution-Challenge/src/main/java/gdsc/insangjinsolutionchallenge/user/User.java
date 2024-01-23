@@ -9,6 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
+@Setter
 public class User extends DateEntity {
 
     @Id
@@ -40,7 +41,7 @@ public class User extends DateEntity {
     private int level;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private Role role;
 
     public static User toEntity(RequestUserDto requestuserDto) {

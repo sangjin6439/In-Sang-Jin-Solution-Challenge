@@ -27,7 +27,7 @@ public class Example extends DateEntity {
     @Column(nullable = false)
     private String content;
 
-    @Column(nullable = false)
+//   @Column(nullable = false)
     private String imgPath;
 
     @Column(nullable = false)

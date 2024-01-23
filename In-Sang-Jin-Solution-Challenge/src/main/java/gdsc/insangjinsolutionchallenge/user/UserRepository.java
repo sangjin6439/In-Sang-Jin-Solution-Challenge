@@ -20,4 +20,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findUsersBySchoolWithTotalScore(@Param("school") String school);
 
 
+    Optional<User> findByUid(String uid);
 }

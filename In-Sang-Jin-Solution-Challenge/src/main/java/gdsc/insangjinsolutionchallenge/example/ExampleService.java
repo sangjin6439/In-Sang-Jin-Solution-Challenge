@@ -21,8 +21,11 @@ public class ExampleService {
     public Example saveExample(RequestExampleDto requestExampleDto) throws IOException {
 
         Example example = Example.toEntity(requestExampleDto);
-        example.saveImgPath(fileService.saveFile(requestExampleDto.getImg(),requestExampleDto.getTitle()));
-
+        String imgPath = fileService.saveFile(requestExampleDto.getImg(), requestExampleDto.getTitle());
+        if (imgPath == null) {
+            imgPath = "https://storage.googleapis.com/download/storage/v1/b/solutionchallenge-lighthouse.appspot.com/o/tkdwls?generation=1705988671269788&alt=media";
+        }
+        example.saveImgPath(imgPath);
         exampleRepository.save(example);
         return example;
 
