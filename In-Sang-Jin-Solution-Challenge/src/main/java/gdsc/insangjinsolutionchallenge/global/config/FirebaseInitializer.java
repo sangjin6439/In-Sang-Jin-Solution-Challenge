@@ -17,7 +17,7 @@ public class FirebaseInitializer {
     @Bean
     public FirebaseApp firebaseApp() throws IOException {
         if(FirebaseApp.getApps().isEmpty()){
-            FileInputStream fis = new FileInputStream("src/main/resources/lighthouse-firebase.json");
+            FileInputStream fis = new FileInputStream("/home/insangjin6439/springbootapp/In-Sang-Jin-Solution-Challenge/In-Sang-Jin-Solution-Challenge/src/main/resources/lighthouse-firebase.json");
             FirebaseOptions options = FirebaseOptions.builder()
                     .setCredentials(GoogleCredentials.fromStream(fis))
                     .build();
