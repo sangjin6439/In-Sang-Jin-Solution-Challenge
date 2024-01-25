@@ -24,6 +24,9 @@ spring:
     path-match:
       matching-strategy: ant_path_matcher
 
+  firebase:
+    privateKey: ${PK}
+
 
 logging.level:
   org.hibernate.SQL: debug
@@ -32,8 +35,7 @@ logging.level:
 #firebaseApp:
 #  json-file-path: lighthouse-firebase.json
 
-firebase:
-  private_key: ${PK}
+
 
 
 #jwt:

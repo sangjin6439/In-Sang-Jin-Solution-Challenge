@@ -14,7 +14,7 @@ import java.io.IOException;
 @Configuration
 public class FirebaseInitializer {
 
-    @Value("${firebase.private_key}")
+    @Value("${spring.firebase.privateKey}")
     private String privateKey;
 
 //    @Value("${firebase.json-file-path}")
