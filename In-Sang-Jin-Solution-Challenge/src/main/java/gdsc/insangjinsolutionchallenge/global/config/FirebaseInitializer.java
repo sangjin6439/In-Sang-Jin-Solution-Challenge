@@ -6,9 +6,11 @@ import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 @Configuration
 public class FirebaseInitializer {
@@ -16,13 +18,18 @@ public class FirebaseInitializer {
 
     @Bean
     public FirebaseApp firebaseApp() throws IOException {
-        if(FirebaseApp.getApps().isEmpty()){
-            FileInputStream fis = new FileInputStream("/home/insangjin6439/springbootapp/In-Sang-Jin-Solution-Challenge/In-Sang-Jin-Solution-Challenge/src/main/resources/lighthouse-firebase.json");
-            FirebaseOptions options = FirebaseOptions.builder()
-                    .setCredentials(GoogleCredentials.fromStream(fis))
-                    .build();
+        if (FirebaseApp.getApps().isEmpty()) {
+            // 클래스패스 상의 리소스를 로드
+            Resource resource = new ClassPathResource("lighthouse-firebase.json");
 
-            return FirebaseApp.initializeApp(options);
+            // 리소스에서 InputStream을 얻음
+            try (InputStream fis = resource.getInputStream()) {
+                FirebaseOptions options = FirebaseOptions.builder()
+                        .setCredentials(GoogleCredentials.fromStream(fis))
+                        .build();
+
+                return FirebaseApp.initializeApp(options);
+            }
         }
         return FirebaseApp.getInstance();
     }
