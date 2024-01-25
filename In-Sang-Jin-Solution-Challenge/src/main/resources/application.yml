@@ -29,8 +29,12 @@ logging.level:
   org.hibernate.SQL: debug
   org.hibernate.type: trace
 
+#firebaseApp:
+#  json-file-path: lighthouse-firebase.json
+
 firebase:
-  json-file-path: lighthouse-firebase.json
+  private_key: ${PK}
+
 
 #jwt:
 #  secret: ${JWT_SECRET}
