@@ -26,6 +26,7 @@ public class SecurityConfig {
     private final UserDetailService userDetailService;
     private final FirebaseAuth firebaseAuth;
 
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http

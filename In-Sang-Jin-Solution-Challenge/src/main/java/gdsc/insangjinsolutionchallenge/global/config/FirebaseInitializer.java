@@ -4,6 +4,7 @@ import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
@@ -15,12 +16,14 @@ import java.io.InputStream;
 @Configuration
 public class FirebaseInitializer {
 
+    @Value("${firebase.json-file-path}")
+    private String jsonFilePath;
 
     @Bean
     public FirebaseApp firebaseApp() throws IOException {
         if (FirebaseApp.getApps().isEmpty()) {
             // 클래스패스 상의 리소스를 로드
-            Resource resource = new ClassPathResource("lighthouse-firebase.json");
+            Resource resource = new ClassPathResource(jsonFilePath);
 
             // 리소스에서 InputStream을 얻음
             try (InputStream fis = resource.getInputStream()) {
