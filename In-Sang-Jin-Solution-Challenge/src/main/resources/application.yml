@@ -33,7 +33,7 @@ logging.level:
   org.hibernate.type: trace
 
 firebase:
-  filePath: "src/main/resources/firebase.json"
+  filePath: ${dd}
 
 
 
