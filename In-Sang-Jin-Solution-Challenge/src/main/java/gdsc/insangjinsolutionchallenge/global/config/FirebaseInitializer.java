@@ -7,11 +7,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
 
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 
 @Configuration
 public class FirebaseInitializer {
@@ -24,16 +22,19 @@ public class FirebaseInitializer {
 
     @Bean
     public FirebaseApp firebaseApp() throws IOException {
-        if (FirebaseApp.getApps().isEmpty()) {
-            // 클래스패스 상의 리소스를 로드
-            Resource resource = new ClassPathResource(jsonFilePath);
+        if(FirebaseApp.getApps().isEmpty()){
+            FileInputStream fis = new FileInputStream(jsonFilePath);
 
-            // 리소스에서 InputStream을 얻음
-            try (InputStream fis = resource.getInputStream()) {
-                FirebaseOptions options = FirebaseOptions.builder()
-                        .setCredentials(GoogleCredentials.fromStream(fis))
-                        .build();
-            }
+            FirebaseOptions options = FirebaseOptions.builder()
+                    .setCredentials(GoogleCredentials.fromStream(fis))
+                    .build();
+
+            return FirebaseApp.initializeApp(options);
+        }
+        return FirebaseApp.getInstance();
+
+    }
+    //환경변수 설정
 //            GoogleCredentials googleCredentials = GoogleCredentials.fromStream(new ByteArrayInputStream(privateKey.getBytes()));
 //
 //            FirebaseOptions options = new FirebaseOptions.Builder()
@@ -41,9 +42,7 @@ public class FirebaseInitializer {
 //                    .build();
 //                return FirebaseApp.initializeApp(options);
 //            }
-        }
-            return FirebaseApp.getInstance();
-        }
+
 
 
         @Bean
