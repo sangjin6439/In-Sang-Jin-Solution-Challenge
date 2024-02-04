@@ -4,7 +4,6 @@ import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.FirebaseAuth;
-import jakarta.annotation.PostConstruct;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -16,15 +15,15 @@ public class FirebaseInitializer {
 
     private String jsonFilePath;
 
-    @PostConstruct
-    public void init() {
-        jsonFilePath = System.getProperty("firebase.filePath");
-    }
+//    @PostConstruct
+//    public void init() {
+//        jsonFilePath = System.getProperty("src/resources/firebase.json");
+//    }
 
     @Bean
     public FirebaseApp firebaseApp() throws IOException {
         if(FirebaseApp.getApps().isEmpty()){
-            FileInputStream fis = new FileInputStream(jsonFilePath);
+            FileInputStream fis = new FileInputStream("src/main/resources/firebase.json");
 
             FirebaseOptions options = FirebaseOptions.builder()
                     .setCredentials(GoogleCredentials.fromStream(fis))
