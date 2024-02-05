@@ -28,9 +28,9 @@ public class ExampleController {
         return exampleService.findExamples();
     }
 
-    @GetMapping("/find/{grade}/{category}")
-    public List<ResponseExampleListDto> findByGradeAndCategory(@PathVariable("grade") String grade,@PathVariable("category") String category){
-        return exampleService.findExampleByGradeAndCategory(grade,category);
+    @GetMapping("/find")
+    public List<ResponseExampleListDto> findByGradeAndCategory(@RequestBody GradeAndCategory gradeAndCategory){
+        return exampleService.findExampleByGradeAndCategory(gradeAndCategory.getGrade(),gradeAndCategory.getCategory());
     }
 
     @PatchMapping("/{id}")

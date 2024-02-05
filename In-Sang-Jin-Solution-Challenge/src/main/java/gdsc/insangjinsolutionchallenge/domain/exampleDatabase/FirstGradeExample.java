@@ -15,7 +15,7 @@ public class FirstGradeExample {
             exampleRepository.save(Example.builder()
                     .title("소수와 소인수")
                     .content("20 이상이고 30 이하인 자연수 중에서 소수가 a개일 때, 다음 중 소인수가 a개인 것은?")
-                    .multipleChoice("① 30" + "② 60" + "③ 72" + "④ 84" + "⑤ 121")
+                    .multipleChoice("①30 " + "②60 " + "③72 " + "④84 " + "⑤121  ")
                     .correct("3")
                     .score(20L)
                     .imgPath("")

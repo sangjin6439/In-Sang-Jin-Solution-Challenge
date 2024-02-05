@@ -19,10 +19,10 @@ public class SubmissionService {
     private final ExampleRepository exampleRepository;
 
     @Transactional
-    public Submission saveSubmission(User user, RequestSubmissionDto requestSubmissionDto) {
+    public Submission saveSubmission(User user,Long exampleId, RequestSubmissionDto requestSubmissionDto) {
         User userinfo = userRepository.findByEmail(user.getEmail())
                 .orElseThrow(() -> new IllegalArgumentException("올바른 유저 정보를 입력해 주세요."));
-        Example example = exampleRepository.findById(requestSubmissionDto.getExampleId())
+        Example example = exampleRepository.findById(exampleId)
                 .orElseThrow(() -> new IllegalArgumentException("올바른 문제 번호를 입력해 주세요."));
 
         Submission submission = Submission.builder()

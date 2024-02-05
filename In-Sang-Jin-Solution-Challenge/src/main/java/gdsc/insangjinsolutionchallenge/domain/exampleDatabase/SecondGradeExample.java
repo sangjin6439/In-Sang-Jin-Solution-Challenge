@@ -44,7 +44,7 @@ public class SecondGradeExample {
                     .score(10L)
                     .imgPath("")
                     .grade("2")
-                    .category("다항식과 다항식 유형")
+                    .category("다항식과 다항식")
                     .correctPercentage(0.0)
                     .build());
 
@@ -56,7 +56,7 @@ public class SecondGradeExample {
                     .score(20L)
                     .imgPath("")
                     .grade("2")
-                    .category("다항식과 다항식 유형")
+                    .category("다항식과 다항식")
                     .correctPercentage(0.0)
                     .build());
 
@@ -68,7 +68,7 @@ public class SecondGradeExample {
                     .score(30L)
                     .imgPath("")
                     .grade("2")
-                    .category("@@@@")
+                    .category("다항식과 다항식")
                     .correctPercentage(0.0)
                     .build());
 
@@ -78,7 +78,7 @@ public class SecondGradeExample {
                     .multipleChoice("")
                     .correct("65")
                     .score(10L)
-                    .imgPath("@@")
+                    .imgPath("https://firebasestorage.googleapis.com/v0/b/lighthouse-7010a.appspot.com/o/2%ED%95%99%EB%85%84%20%ED%94%BC%ED%83%80%EA%B3%A0%EB%9D%BC%EC%8A%A4%202101%EB%B2%88.png?alt=media&token=38be5cb0-7f70-4612-a728-c09686ee3f9b")
                     .grade("2")
                     .category("삼각형과 사각형, 닮음과 피타고라스 정리")
                     .correctPercentage(0.0)
@@ -90,7 +90,7 @@ public class SecondGradeExample {
                     .multipleChoice("")
                     .correct("55")
                     .score(20L)
-                    .imgPath("@@")
+                    .imgPath("https://firebasestorage.googleapis.com/v0/b/lighthouse-7010a.appspot.com/o/2%ED%95%99%EB%85%84%20%ED%94%BC%ED%83%80%EA%B3%A0%EB%9D%BC%EC%8A%A4%202102%EB%B2%88.png?alt=media&token=ab25259d-e22a-4911-afc5-84e6b69a9d5e")
                     .grade("2")
                     .category("삼각형과 사각형, 닮음과 피타고라스 정리")
                     .correctPercentage(0.0)

@@ -22,7 +22,7 @@ public class User implements UserDetails {
     @Column(name = "user_id")
     private Long id;
 
-    @Column(name = "firebase_uid", nullable = false, unique = true)
+    @Column(name = "firebase_uid", unique = true)
     private String firebaseUid;
 
     @Column(nullable = false)

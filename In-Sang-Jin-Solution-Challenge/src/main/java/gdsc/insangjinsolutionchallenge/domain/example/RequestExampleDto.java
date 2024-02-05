@@ -13,5 +13,4 @@ public class RequestExampleDto {
     private String grade;
     //integer로 하면 프론트에서 보내는데 오류가 남(?) 왜지
     private Long score;
-
 }

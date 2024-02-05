@@ -24,6 +24,15 @@ public class PostController {
         return postService.save(user,requestPostDto);
     }
 
+    @PostMapping("save1")
+    public Post save1 (@RequestBody @Valid RequestPostDto requestPostDto){
+        return postRepository.save(Post.builder()
+                .title(requestPostDto.getTitle())
+                .content(requestPostDto.getContent())
+                .build());
+
+    }
+
     @PostMapping
     public Post save(@RequestBody @Valid RequestPostDto requestPostDto) {
         return postRepository.save(Post.builder()

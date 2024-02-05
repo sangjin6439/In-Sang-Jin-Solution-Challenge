@@ -15,9 +15,9 @@ public class SubmissionController {
 
     private final SubmissionService submissionService;
 
-    @PostMapping("/save")
-    public Submission save(@AuthenticationPrincipal User user, @RequestBody @Valid RequestSubmissionDto requestSubmissionDto){
-        return submissionService.saveSubmission(user, requestSubmissionDto);
+    @PostMapping("/save/{exampleId}")
+    public Submission save(@AuthenticationPrincipal User user,@PathVariable Long exampleId, @RequestBody @Valid RequestSubmissionDto requestSubmissionDto){
+        return submissionService.saveSubmission(user, exampleId, requestSubmissionDto);
     }
 
     @GetMapping("/find/{id}")
