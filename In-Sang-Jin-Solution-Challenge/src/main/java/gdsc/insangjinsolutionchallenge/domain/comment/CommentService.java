@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,9 +23,9 @@ public class CommentService {
     private final UserRepository userRepository;
 
     @Transactional
-    public String save(User user, Long postId,RequestCommentDto requestCommentDto) {
+    public String save(Principal principal, Long postId, RequestCommentDto requestCommentDto) {
         Post post =postRepository.findById(postId).orElseThrow(()-> new IllegalArgumentException("없는 게시물입니다."));
-        User userInfo = userRepository.findByEmail(user.getEmail())
+        User userInfo = userRepository.findByEmail(principal.getName())
                 .orElseThrow(()-> new IllegalArgumentException("없는 유저입니다."));
          Comment comment = Comment.builder()
                 .content(requestCommentDto.getContent())
@@ -54,9 +55,9 @@ public class CommentService {
     }
 
     @Transactional
-    public String delete(User user, Long id) {
+    public String delete(Principal principal, Long id) {
         String userEmail = findCommentDao(id).getUser().getEmail();
-        if(!userEmail.equals(user.getEmail())){
+        if(!userEmail.equals(principal.getName())){
             throw new ApplicationErrorException(ApplicationErrorType.UNAUTHORIZED,"권한이 없는 사용자입니다.");
         }
         Comment comment = commentRepository.findById(id)

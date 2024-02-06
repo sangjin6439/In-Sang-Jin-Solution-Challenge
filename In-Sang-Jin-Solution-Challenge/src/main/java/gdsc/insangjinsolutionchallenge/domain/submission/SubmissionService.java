@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,8 +21,8 @@ public class SubmissionService {
     private final ExampleRepository exampleRepository;
 
     @Transactional
-    public Submission saveSubmission(User user,Long exampleId, RequestSubmissionDto requestSubmissionDto) {
-        User userinfo = userRepository.findByEmail(user.getEmail())
+    public Submission saveSubmission(Principal principal, Long exampleId, RequestSubmissionDto requestSubmissionDto) {
+        User userinfo = userRepository.findByEmail(principal.getName())
                 .orElseThrow(() -> new IllegalArgumentException("올바른 유저 정보를 입력해 주세요."));
         Example example = exampleRepository.findById(exampleId)
                 .orElseThrow(() -> new IllegalArgumentException("올바른 문제 번호를 입력해 주세요."));
@@ -34,12 +36,12 @@ public class SubmissionService {
         submission.setCorrect(submission.checkAnswer(example));
 
         if (submission.isCorrect()) {
-            user.addTotalScoreAndUpdateLevel(example.getScore());
+            userinfo.addTotalScoreAndUpdateLevel(example.getScore());
         }
         submissionRepository.save(submission);
 
 
-        userRepository.save(user);
+        userRepository.save(userinfo);
 
         int totalSubmissions = example.getSubmissions().size();
 
@@ -55,21 +57,23 @@ public class SubmissionService {
 
 
     @Transactional(readOnly = true)
-    public ResponseSubmission findSubmission(Long submissionId) {
-        Submission submission = findById(submissionId);
-        return ResponseSubmission.builder()
-                .id(submission.getId())
-                .exampleId(submission.getExample().getId())
-                .userAnswer(submission.getUserAnswer())
-                .correct(submission.isCorrect())
-                .createAt(submission.getCreateAt())
-                .build();
-    }
+    public List<ResponseSubmission> findSubmission(Long exmapleId) {
+       Example example = exampleRepository.findById(exmapleId).orElseThrow(()-> new IllegalArgumentException("없는 문제입니다."));
+       List<Submission> submissions =example.getSubmissions();
+       List<ResponseSubmission> responseSubmission = new ArrayList<>();
 
-    @Transactional(readOnly = true)
-    public List<Submission> findAll() {
-        return submissionRepository.findAll();
+        for (Submission submission : submissions) {
+            ResponseSubmission responseSubmission1 = ResponseSubmission.builder()
+                    .userAnswer(submission.getUserAnswer())
+                    .correct(submission.isCorrect())
+                    .createAt(submission.getCreateAt())
+                    .build();
+
+            responseSubmission.add(responseSubmission1);
+        }
+        return responseSubmission;
     }
+    
 
     private Submission findById(Long submissionId) {
         return submissionRepository.findById(submissionId)

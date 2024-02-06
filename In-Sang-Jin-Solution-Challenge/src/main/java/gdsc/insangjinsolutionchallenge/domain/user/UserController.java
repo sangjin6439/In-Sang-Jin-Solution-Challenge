@@ -1,7 +1,6 @@
 package gdsc.insangjinsolutionchallenge.domain.user;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -16,13 +15,13 @@ public class UserController {
 
 
     @PostMapping("add/info") //추가 정보 입력, 부분적인 사항만 저정할 때에는 patch를 써야함. put을 쓰면 모든 엔티티의 값을 넣어야함
-    public String saveEx(@AuthenticationPrincipal User user, @RequestBody RequestUserDto requestUserDto) {
-        return userService.saveEx(user, requestUserDto);
+    public String saveEx(Principal principal, @RequestBody RequestUserDto requestUserDto) {
+        return userService.saveEx(principal, requestUserDto);
     }
 
     @GetMapping("/my/info") //userDetails쓰면 아래의 어노테이션 써서 유저 정보 확인
-    public ResponseUserDto myInfo(@AuthenticationPrincipal User user) {
-        return userService.findMyInfo(user);
+    public ResponseUserDto myInfo(Principal principal) {
+        return userService.findMyInfo(principal);
     }
 
     @GetMapping("/{email}")

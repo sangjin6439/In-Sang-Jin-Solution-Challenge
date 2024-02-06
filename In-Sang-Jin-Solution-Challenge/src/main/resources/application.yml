@@ -19,6 +19,11 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
+        use_sql_comments: true
+#        type:
+#          descriptor:
+#            sql: trace
+
   mvc:
     path-match:
       matching-strategy: ant_path_matcher

@@ -21,5 +21,4 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("SELECT u FROM User u Where u.school = :school ORDER BY u.totalScore DESC")
     List<User> findUsersBySchoolWithTotalScore(@Param("school") String school);
 
-    Optional<User> findByFirebaseUid(String uid);
 }

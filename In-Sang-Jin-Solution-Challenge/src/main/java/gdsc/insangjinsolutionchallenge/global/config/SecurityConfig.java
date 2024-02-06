@@ -1,11 +1,9 @@
 package gdsc.insangjinsolutionchallenge.global.config;
 
-
-import gdsc.insangjinsolutionchallenge.domain.user.UserDetailService;
 import gdsc.insangjinsolutionchallenge.global.oauth.JwtFilter;
 import gdsc.insangjinsolutionchallenge.global.oauth.TokenProvider;
-import gdsc.insangjinsolutionchallenge.global.security.entry.CustomAccessDeniedHandler;
-import gdsc.insangjinsolutionchallenge.global.security.entry.CustomAuthenticationEntryPoint;
+import gdsc.insangjinsolutionchallenge.global.securityEntry.CustomAccessDeniedHandler;
+import gdsc.insangjinsolutionchallenge.global.securityEntry.CustomAuthenticationEntryPoint;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,7 +27,6 @@ import java.util.List;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
-    private final UserDetailService userDetailService;
     private final TokenProvider tokenProvider;
 
 //security의 전체적인 흐름을 나타내는 filter 이 filter을 통해 시큐리티의 흐름을 제어한다.

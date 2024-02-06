@@ -10,7 +10,7 @@ public enum ApplicationErrorType {
     //400
     VALIDATION_ERROR(HttpStatus.BAD_REQUEST, "요청값이 올바르지 않습니다."),
     INVALID_HEADER(HttpStatus.BAD_REQUEST, "Header 값이 올바르지 않습니다."),
-    INVALID_FIREBASE_TOKEN(HttpStatus.BAD_REQUEST, "Firebase 토큰이 올바르지 않습니다."),
+    INVALID_FIREBASE_TOKEN(HttpStatus.BAD_REQUEST, "토큰이 올바르지 않습니다."),
     //401
     NO_AUTHENTICATION(HttpStatus.UNAUTHORIZED, "인증되지 않은 사용자입니다."),
     UNAUTHORIZED(HttpStatus.UNAUTHORIZED, "권한이 없습니다."),

@@ -1,11 +1,10 @@
 package gdsc.insangjinsolutionchallenge.domain.submission;
 
-import gdsc.insangjinsolutionchallenge.domain.user.User;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -16,18 +15,15 @@ public class SubmissionController {
     private final SubmissionService submissionService;
 
     @PostMapping("/save/{exampleId}")
-    public Submission save(@AuthenticationPrincipal User user,@PathVariable Long exampleId, @RequestBody @Valid RequestSubmissionDto requestSubmissionDto){
-        return submissionService.saveSubmission(user, exampleId, requestSubmissionDto);
+    public Submission save(Principal principal, @PathVariable("exampleId") Long exampleId, @RequestBody @Valid RequestSubmissionDto requestSubmissionDto){
+        return submissionService.saveSubmission(principal, exampleId, requestSubmissionDto);
     }
 
-    @GetMapping("/find/{id}")
-    public ResponseSubmission find(@PathVariable("id") Long id){
-        return submissionService.findSubmission(id);
+    //문제 번호로 유저 제출 찾기
+    @GetMapping("/find/{exampleId}")
+    public List<ResponseSubmission> find(@PathVariable("exampleId") Long exampleId){
+        return submissionService.findSubmission(exampleId);
     }
 
 
-    @GetMapping("/find/all")
-    public List<Submission> findAll(){
-        return submissionService.findAll();
-    }
 }

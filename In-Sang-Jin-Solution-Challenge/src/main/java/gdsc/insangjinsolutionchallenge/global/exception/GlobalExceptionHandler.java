@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.context.request.WebRequest;
 
 import java.io.IOException;
@@ -45,19 +46,13 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponseDto, ApplicationErrorType.VALIDATION_ERROR.getHttpStatus());
     }
 
-//    @ExceptionHandler(value = HttpClientErrorException.Unauthorized.class)
-//    public ResponseEntity<ErrorResponseDto> handleUnauthorizedException(WebRequest request, HttpClientErrorException.Unauthorized e){
-//        log.error("UnauthenticatedException {}", e.getMessage());
-//        ErrorResponseDto errorResponseDto = new ErrorResponseDto(ApplicationErrorType.UNAUTHORIZED.name(), e.getMessage());
-//        return new ResponseEntity<>(errorResponseDto, ApplicationErrorType.UNAUTHORIZED.getHttpStatus());
-//    }
+    @ExceptionHandler(value = HttpClientErrorException.Unauthorized.class)
+    public ResponseEntity<ErrorResponseDto> handleUnauthorizedException(WebRequest request, HttpClientErrorException.Unauthorized e){
+        log.error("UnauthenticatedException {}", e.getMessage());
+        ErrorResponseDto errorResponseDto = new ErrorResponseDto(ApplicationErrorType.UNAUTHORIZED.name(), e.getMessage());
+        return new ResponseEntity<>(errorResponseDto, ApplicationErrorType.UNAUTHORIZED.getHttpStatus());
+    }
 
-
-//    @ExceptionHandler(UnauthorizedException.class)
-//    @ResponseStatus(HttpStatus.UNAUTHORIZED)
-//    public ResponseEntity<String> handleUnauthorizedException(UnauthorizedException e){
-//        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
-//    }
 
 
     @ExceptionHandler

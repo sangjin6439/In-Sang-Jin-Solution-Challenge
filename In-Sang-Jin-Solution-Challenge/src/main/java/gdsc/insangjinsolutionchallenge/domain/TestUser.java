@@ -15,10 +15,9 @@ public class TestUser {
         return args -> {
             // 더미 데이터 생성
             repository.save(User.builder()
-                    .firebaseUid("testUid")
                     .name("testName")
                     .email("test@example.com")
-                    .address("testAddress")
+                    .country("testAddress")
                     .age(24)
                     .school("testSchool")
                     .pictureUrl("testUrl")

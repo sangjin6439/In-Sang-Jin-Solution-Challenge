@@ -22,9 +22,6 @@ public class User implements UserDetails {
     @Column(name = "user_id")
     private Long id;
 
-    @Column(name = "firebase_uid", unique = true)
-    private String firebaseUid;
-
     @Column(nullable = false)
     private String name;
 
@@ -32,7 +29,7 @@ public class User implements UserDetails {
     private String email;
 
     //받아 오는거 추가해야함
-    private String address;
+    private String country;
 
     private int age;
 
@@ -51,7 +48,6 @@ public class User implements UserDetails {
 
 
     public void update(FirebaseToken token) {
-        this.firebaseUid = token.getUid();
         this.email = token.getEmail();
     }
 
@@ -59,7 +55,7 @@ public class User implements UserDetails {
     public void updateUser(RequestUserDto requestUserDto) {
         this.age = requestUserDto.getAge();
         this.school = requestUserDto.getSchool();
-        this.role = requestUserDto.getRole();
+        this.country = requestUserDto.getCountry();
     }
 
     //점수 획득 및 레벨 상승

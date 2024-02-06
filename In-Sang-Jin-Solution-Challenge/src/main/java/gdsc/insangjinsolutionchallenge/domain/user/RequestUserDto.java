@@ -8,5 +8,5 @@ import lombok.NoArgsConstructor;
 public class RequestUserDto {
     private Integer age;
     private String school;
-    private Role role;
+    private String country;
 }

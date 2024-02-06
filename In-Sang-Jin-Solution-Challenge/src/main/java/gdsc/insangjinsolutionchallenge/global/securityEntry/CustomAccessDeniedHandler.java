@@ -1,4 +1,4 @@
-package gdsc.insangjinsolutionchallenge.global.security.entry;
+package gdsc.insangjinsolutionchallenge.global.securityEntry;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

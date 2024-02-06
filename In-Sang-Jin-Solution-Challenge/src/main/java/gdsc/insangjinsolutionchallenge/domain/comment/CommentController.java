@@ -1,11 +1,10 @@
 package gdsc.insangjinsolutionchallenge.domain.comment;
 
-import gdsc.insangjinsolutionchallenge.domain.user.User;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -16,8 +15,8 @@ public class CommentController {
     private final CommentService commentService;
 
     @PostMapping("/save/{postId}")
-    public String save(@AuthenticationPrincipal User user, @PathVariable("postId") Long postId, @RequestBody @Valid RequestCommentDto requestCommentDto){
-        return commentService.save(user, postId, requestCommentDto);
+    public String save(Principal principal, @PathVariable("postId") Long postId, @RequestBody @Valid RequestCommentDto requestCommentDto){
+        return commentService.save(principal, postId, requestCommentDto);
     }
 
     @GetMapping("/find/{postId}")
@@ -26,7 +25,7 @@ public class CommentController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public String delete(@AuthenticationPrincipal User user,@PathVariable("id") Long id){
-        return commentService.delete(user,id);
+    public String delete(Principal principal,@PathVariable("id") Long id){
+        return commentService.delete(principal,id);
     }
 }

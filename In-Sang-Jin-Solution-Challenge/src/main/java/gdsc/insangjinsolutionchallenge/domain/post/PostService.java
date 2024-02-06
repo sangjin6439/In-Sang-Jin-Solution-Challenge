@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,8 +23,8 @@ public class PostService {
     private final UserRepository userRepository;
 
     @Transactional
-    public String save(User user, RequestPostDto requestPostDto){
-        User userInfo = userRepository.findByEmail(user.getEmail())
+    public String save(Principal principal, RequestPostDto requestPostDto){
+        User userInfo = userRepository.findByEmail(principal.getName())
                 .orElseThrow(()-> new IllegalArgumentException("없는 유저입니다."));
 
         Post post = Post.builder()
@@ -102,9 +103,9 @@ public class PostService {
 
 
     @Transactional
-    public String update(User user, Long id, RequestPostDto requestPostDto){
+    public String update(Principal principal, Long id, RequestPostDto requestPostDto){
         String userEmail = findPostDao(id).getUser().getEmail();
-        if(!userEmail.equals(user.getEmail())){
+        if(!userEmail.equals(principal.getName())){
             throw new ApplicationErrorException(ApplicationErrorType.UNAUTHORIZED,"권한이 없는 사용자입니다.");
         }
         Post post = findPostDao(id);
@@ -113,9 +114,9 @@ public class PostService {
     }
 
     @Transactional
-    public String delete(User user, Long id){
+    public String delete(Principal principal, Long id){
         String userEmail = findPostDao(id).getUser().getEmail();
-        if(!userEmail.equals(user.getEmail())){
+        if(!userEmail.equals(principal.getName())){
             throw new ApplicationErrorException(ApplicationErrorType.UNAUTHORIZED,"권한이 없는 사용자입니다.");
         }
         postRepository.delete(findPostDao(id));

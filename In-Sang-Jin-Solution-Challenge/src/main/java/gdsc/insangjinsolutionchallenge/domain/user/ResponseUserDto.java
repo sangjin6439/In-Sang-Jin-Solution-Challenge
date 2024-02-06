@@ -12,13 +12,13 @@ public class ResponseUserDto {
     private Integer age;
     private String email;
     private String school;
+    private String country;
     private String pictureUrl;
     private Integer level;
     private Integer totalScore;
     private Role role;
     private LocalDateTime creatAt;
     private LocalDateTime updateAt;
-    private String firebaseUid;
 
     public static ResponseUserDto toDto(User user) {
         return ResponseUserDto.builder()
@@ -26,13 +26,11 @@ public class ResponseUserDto {
                 .age(user.getAge())
                 .email(user.getEmail())
                 .school(user.getSchool())
+                .country(user.getCountry())
                 .pictureUrl(user.getPictureUrl())
                 .totalScore(user.getTotalScore())
                 .level(user.getLevel())
                 .role(user.getRole())
-                .firebaseUid(user.getFirebaseUid())
                 .build();
     }
-
-
 }

@@ -17,15 +17,15 @@ public class UserService {
 
 
     @Transactional //추가 정보 입력
-    public String saveEx(User user, RequestUserDto requestUserDto) {
-        User userInfo = findUserByEmail(user.getEmail());
+    public String saveEx(Principal principal, RequestUserDto requestUserDto) {
+        User userInfo = findUserByEmail(principal.getName());
         userInfo.updateUser(requestUserDto);
         return "저장 완료";
     }
 
     @Transactional(readOnly = true)
-    public ResponseUserDto findMyInfo(User user) {
-        return ResponseUserDto.toDto(findUserById(user.getId()));
+    public ResponseUserDto findMyInfo(Principal principal) {
+        return ResponseUserDto.toDto(findUserByEmail(principal.getName()));
     }
 
     @Transactional(readOnly = true)

@@ -1,14 +1,13 @@
 package gdsc.insangjinsolutionchallenge.domain.post;
 
-import gdsc.insangjinsolutionchallenge.domain.user.User;
 import gdsc.insangjinsolutionchallenge.domain.user.UserRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -20,18 +19,10 @@ public class PostController {
     private final UserRepository userRepository;
 
     @PostMapping("/save")
-    public String save(@AuthenticationPrincipal User user, @RequestBody @Valid RequestPostDto requestPostDto) {
-        return postService.save(user,requestPostDto);
+    public String save(Principal principal, @RequestBody @Valid RequestPostDto requestPostDto) {
+        return postService.save(principal,requestPostDto);
     }
 
-    @PostMapping("save1")
-    public Post save1 (@RequestBody @Valid RequestPostDto requestPostDto){
-        return postRepository.save(Post.builder()
-                .title(requestPostDto.getTitle())
-                .content(requestPostDto.getContent())
-                .build());
-
-    }
 
     @PostMapping
     public Post save(@RequestBody @Valid RequestPostDto requestPostDto) {
@@ -60,13 +51,13 @@ public class PostController {
     }
 
     @PatchMapping("/update/{id}")
-    public String update(@AuthenticationPrincipal User user, @PathVariable("id")Long id,@RequestBody RequestPostDto requestPostDto){
-        return postService.update(user, id,requestPostDto);
+    public String update(Principal principal, @PathVariable("id")Long id,@RequestBody RequestPostDto requestPostDto){
+        return postService.update(principal, id,requestPostDto);
     }
 
     @DeleteMapping("delete/{id}")
-    public String delete(@AuthenticationPrincipal User user, @PathVariable("id") Long id) {
-        return postService.delete(user,id);
+    public String delete(Principal principal, @PathVariable("id") Long id) {
+        return postService.delete(principal,id);
     }
 
 
