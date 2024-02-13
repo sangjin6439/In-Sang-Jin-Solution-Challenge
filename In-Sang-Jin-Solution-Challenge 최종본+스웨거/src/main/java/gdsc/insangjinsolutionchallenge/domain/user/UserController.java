@@ -21,7 +21,7 @@ public class UserController {
     }
 
     @GetMapping("/my/info") //userDetails쓰면 아래의 어노테이션 써서 유저 정보 확인
-    public ResponseEntity<ResponseUserDto> findMemberInfoById(Principal principal) {
+    public ResponseEntity<ResponseUserDto> findUserInfoById(Principal principal) {
         return ResponseEntity.ok(userService.findMyInfo(Long.valueOf(principal.getName())));
     }
 

@@ -96,6 +96,7 @@ public class PostService {
                 .comments(commentDtos)
                 .creatAt(post.getCreateAt())
                 .updateAt(post.getUpdateAt())
+                .likeCount(post.getLikeCount())
                 .build();
         return responsePostDto;
     }
