@@ -68,7 +68,7 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.POST,"/examples/**").hasAuthority("ROLE_TEACHER")
                 .requestMatchers(HttpMethod.DELETE,"/examples/**").hasAuthority("ROLE_TEACHER")
                 .requestMatchers(HttpMethod.PATCH,"/examples/**").hasAuthority("ROLE_TEACHER")
-                .anyRequest().permitAll()   // 나머지 API 는 전부 인증 필요
+                .anyRequest().authenticated()   // 나머지 API 는 전부 인증 필요
 
                 // JwtFilter 를 addFilterBefore 로 등록했던 JwtSecurityConfig 클래스를 적용
                 .and()
