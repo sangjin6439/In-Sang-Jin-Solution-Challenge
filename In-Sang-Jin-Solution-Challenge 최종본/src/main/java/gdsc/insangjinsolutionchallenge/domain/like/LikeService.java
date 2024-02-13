@@ -9,8 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.security.Principal;
-
 @Service
 @RequiredArgsConstructor
 public class LikeService {
@@ -21,8 +19,8 @@ public class LikeService {
     private final UserRepository userRepository;
 
     @Transactional
-    public void addLike(Principal principal, Long postId){
-        User userInfo = userRepository.findByEmail(principal.getName())
+    public void addLike(Long userId, Long postId){
+        User userInfo = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("올바른 유저 정보를 입력해 주세요."));
         Post post = postService.findPostDao(postId);
         if (!likeRepository.existsByUserAndPost(userInfo, post)){

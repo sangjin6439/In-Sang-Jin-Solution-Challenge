@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,20 +16,21 @@ public class UserService {
 
 
     @Transactional //추가 정보 입력
-    public String saveEx(Long userId, RequestExUserDto requestUserDto) {
+    public String saveEx(Long userId, RequestUserDto requestUserDto) {
         User userInfo = findUserById(userId);
         userInfo.updateUser(requestUserDto);
         return "저장 완료";
     }
 
     @Transactional(readOnly = true)
-    public ResponseExUserDto findMyInfo(Long userId) {
-        return ResponseExUserDto.toDto(findUserById(userId));
+    public ResponseUserDto findMyInfo(Long userId) {
+        User user = findUserById(userId);
+        return ResponseUserDto.toDto(user);
     }
 
     @Transactional(readOnly = true)
-    public ResponseExUserDto findUser(String email) {
-        return ResponseExUserDto.toDto(findUserByEmail(email));
+    public ResponseUserDto findUser(String email) {
+        return ResponseUserDto.toDto(findUserByEmail(email));
     }
 
     @Transactional(readOnly = true)
@@ -47,8 +47,9 @@ public class UserService {
     }
 
     @Transactional
-    public String deleteUser(Principal principal) {
-        userRepository.delete(findUserById(Long.valueOf(principal.getName())));
+    public String deleteUser(Long userId) {
+
+        userRepository.delete(findUserById(userId));
         return "삭제 완료!";
     }
 
@@ -75,17 +76,6 @@ public class UserService {
         return rankingUserDtos;
     }
 
-    /////////////////////
-//    public User findMemberInfoById(Long memberId) {
-//        return memberRepository.findById(memberId)
-//                .map(MemberResponseDto::of)
-//                .orElseThrow(() -> new RuntimeException("로그인 유저 정보가 없습니다."));
-//    }
-//
-//    public MemberResponseDto findMemberInfoByEmail(String email) {
-//        return memberRepository.findByEmail(email)
-//                .map(MemberResponseDto::of)
-//                .orElseThrow(() -> new RuntimeException("유저 정보가 없습니다."));
-//    }
+
 
 }

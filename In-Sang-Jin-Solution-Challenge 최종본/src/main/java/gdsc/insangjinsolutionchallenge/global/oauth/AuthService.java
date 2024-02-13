@@ -2,8 +2,7 @@ package gdsc.insangjinsolutionchallenge.global.oauth;
 
 import gdsc.insangjinsolutionchallenge.domain.TokenDto;
 import gdsc.insangjinsolutionchallenge.domain.TokenRequestDto;
-import gdsc.insangjinsolutionchallenge.domain.user.RequestUserDto;
-import gdsc.insangjinsolutionchallenge.domain.user.ResponseUserDto;
+import gdsc.insangjinsolutionchallenge.domain.user.LoginUserDto;
 import gdsc.insangjinsolutionchallenge.domain.user.User;
 import gdsc.insangjinsolutionchallenge.domain.user.UserRepository;
 import jakarta.transaction.Transactional;
@@ -24,19 +23,20 @@ public class AuthService {
     private final RefreshTokenRepository refreshTokenRepository;
 
     @Transactional
-    public ResponseUserDto signup(RequestUserDto requestUserDto) {
-        if (userRepository.existsByEmail(requestUserDto.getEmail())) {
+    public String signup(LoginUserDto loginUserDto) {
+        if (userRepository.existsByEmail(loginUserDto.getEmail())) {
             throw new RuntimeException("이미 가입되어 있는 유저입니다");
         }
 
-        User user = requestUserDto.toUser(passwordEncoder);
-        return ResponseUserDto.of(userRepository.save(user));
+        User user = loginUserDto.toUser(passwordEncoder);
+        userRepository.save(user);
+        return "회원가입이 완료되었습니다.";
     }
 
     @Transactional
-    public TokenDto login(RequestUserDto requestUserDto) {
+    public TokenDto login(LoginUserDto loginUserDto) {
         // 1. Login ID/PW 를 기반으로 AuthenticationToken 생성
-        UsernamePasswordAuthenticationToken authenticationToken = requestUserDto.toAuthentication();
+        UsernamePasswordAuthenticationToken authenticationToken = loginUserDto.toAuthentication();
 
         // 2. 실제로 검증 (사용자 비밀번호 체크) 이 이루어지는 부분
         //    authenticate 메서드가 실행이 될 때 CustomUserDetailsService 에서 만들었던 loadUserByUsername 메서드가 실행됨

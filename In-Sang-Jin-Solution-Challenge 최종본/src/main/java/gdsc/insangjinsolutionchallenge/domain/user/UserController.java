@@ -1,6 +1,5 @@
 package gdsc.insangjinsolutionchallenge.domain.user;
 
-import gdsc.insangjinsolutionchallenge.global.oauth.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,17 +16,17 @@ public class UserController {
 
 
     @PostMapping("add/info") //추가 정보 입력, 부분적인 사항만 저정할 때에는 patch를 써야함. put을 쓰면 모든 엔티티의 값을 넣어야함
-    public String saveEx(@RequestBody RequestExUserDto requestUserDto) {
-        return userService.saveEx(SecurityUtil.getCurrentMemberId(),requestUserDto);
+    public String saveEx(Principal principal, @RequestBody RequestUserDto requestUserDto) {
+        return userService.saveEx(Long.valueOf(principal.getName()), requestUserDto);
     }
 
     @GetMapping("/my/info") //userDetails쓰면 아래의 어노테이션 써서 유저 정보 확인
-    public ResponseEntity<ResponseExUserDto> findMemberInfoById() {
-        return ResponseEntity.ok(userService.findMyInfo(SecurityUtil.getCurrentMemberId()));
+    public ResponseEntity<ResponseUserDto> findMemberInfoById(Principal principal) {
+        return ResponseEntity.ok(userService.findMyInfo(Long.valueOf(principal.getName())));
     }
 
     @GetMapping("/{email}")
-    public ResponseExUserDto find(@PathVariable("email") String email) {  //("email")명시하기!
+    public ResponseUserDto find(@PathVariable("email") String email) {  //("email")명시하기!
         return userService.findUser(email);
     }
 
@@ -43,7 +42,7 @@ public class UserController {
 
     @DeleteMapping("/delete/info")
     public String delete(Principal principal) {
-        return userService.deleteUser(principal);
+        return userService.deleteUser(Long.valueOf(principal.getName()));
     }
 
 }

@@ -24,12 +24,10 @@ spring:
 #          descriptor:
 #            sql: trace
 
-  mvc:
-    path-match:
-      matching-strategy: ant_path_matcher
+#  mvc:
+#    path-match:
+#      matching-strategy: ant_path_matcher
 
-  firebase:
-    privateKey: ${PK}
 
 
 logging.level:
@@ -41,7 +39,7 @@ logging.level:
 
 
 jwt:
-  secret: KaMa/iIsXRtbIQcX9u7ZA2b4E6hoYEHl6v2WYfkYmVXurJAaQ6kAohu0DfzuSXeV
+  secret: ${JWT_SECRET}
   access-token-validity-in-milliseconds: ${access-token-validity-in-milliseconds}
 
 client_id: ${GOOGLE_CLIENT_ID}

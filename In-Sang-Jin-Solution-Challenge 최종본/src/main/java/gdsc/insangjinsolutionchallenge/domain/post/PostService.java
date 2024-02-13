@@ -11,7 +11,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -115,9 +114,9 @@ public class PostService {
     }
 
     @Transactional
-    public String delete(Principal principal, Long id){
-        String userEmail = findPostDao(id).getUser().getEmail();
-        if(!userEmail.equals(principal.getName())){
+    public String delete(Long userId, Long id){
+        Long authorId = Long.valueOf(String.valueOf(findPostDao(id).getUser().getId()));
+        if(!authorId.equals(userId)){
             throw new ApplicationErrorException(ApplicationErrorType.UNAUTHORIZED,"권한이 없는 사용자입니다.");
         }
         postRepository.delete(findPostDao(id));

@@ -16,7 +16,7 @@ public class SubmissionController {
 
     @PostMapping("/save/{exampleId}")
     public Submission save(Principal principal, @PathVariable("exampleId") Long exampleId, @RequestBody @Valid RequestSubmissionDto requestSubmissionDto){
-        return submissionService.saveSubmission(principal, exampleId, requestSubmissionDto);
+        return submissionService.saveSubmission(Long.valueOf(principal.getName()), exampleId, requestSubmissionDto);
     }
 
     //문제 번호로 유저 제출 찾기

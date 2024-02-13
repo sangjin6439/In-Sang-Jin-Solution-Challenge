@@ -17,23 +17,19 @@ public class User{
     @Column(name = "user_id")
     private Long id;
 
-    //    @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Column(nullable = false)
     private String password;
 
-    //받아 오는거 추가해야함
     private String country;
 
     private int age;
 
     private String school;
-
-//    private String pictureUrl;
 
     private int totalScore;
 
@@ -54,8 +50,8 @@ public class User{
 
 
     // 이름, 나이, 학교 바꿀 수 있게 열어둠
-    public void updateUser(RequestExUserDto requestUserDto) {
-        this.email= requestUserDto.getName();
+    public void updateUser(RequestUserDto requestUserDto) {
+        this.name= requestUserDto.getName();
         this.age = requestUserDto.getAge();
         this.school = requestUserDto.getSchool();
         this.country = requestUserDto.getCountry();

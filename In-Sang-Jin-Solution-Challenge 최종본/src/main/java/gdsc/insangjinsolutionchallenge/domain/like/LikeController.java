@@ -20,7 +20,7 @@ public class LikeController {
 
     @PostMapping("/{postId}")
     public ResponseEntity addLike(Principal principal, @PathVariable("postId") Long postId){
-        likeService.addLike(principal,postId);
+        likeService.addLike(Long.valueOf(principal.getName()),postId);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 

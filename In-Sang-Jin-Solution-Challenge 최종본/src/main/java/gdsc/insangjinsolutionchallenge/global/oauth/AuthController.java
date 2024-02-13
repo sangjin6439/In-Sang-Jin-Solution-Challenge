@@ -2,8 +2,8 @@ package gdsc.insangjinsolutionchallenge.global.oauth;
 
 import gdsc.insangjinsolutionchallenge.domain.TokenDto;
 import gdsc.insangjinsolutionchallenge.domain.TokenRequestDto;
-import gdsc.insangjinsolutionchallenge.domain.user.RequestUserDto;
-import gdsc.insangjinsolutionchallenge.domain.user.ResponseUserDto;
+import gdsc.insangjinsolutionchallenge.domain.user.LoginUserDto;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,13 +18,13 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/signup")
-    public ResponseEntity<ResponseUserDto> signup(@RequestBody RequestUserDto requestUserDto) {
-        return ResponseEntity.ok(authService.signup(requestUserDto));
+    public String signup(@RequestBody @Valid LoginUserDto loginUserDto) {
+        return authService.signup(loginUserDto);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<TokenDto> login(@RequestBody RequestUserDto requestUserDto) {
-        return ResponseEntity.ok(authService.login(requestUserDto));
+    public ResponseEntity<TokenDto> login(@RequestBody @Valid LoginUserDto loginUserDto) {
+        return ResponseEntity.ok(authService.login(loginUserDto));
     }
 
     @PostMapping("/reissue")

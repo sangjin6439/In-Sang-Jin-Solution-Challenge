@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,8 +20,8 @@ public class SubmissionService {
     private final ExampleRepository exampleRepository;
 
     @Transactional
-    public Submission saveSubmission(Principal principal, Long exampleId, RequestSubmissionDto requestSubmissionDto) {
-        User userinfo = userRepository.findByEmail(principal.getName())
+    public Submission saveSubmission(Long userId, Long exampleId, RequestSubmissionDto requestSubmissionDto) {
+        User userinfo = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("올바른 유저 정보를 입력해 주세요."));
         Example example = exampleRepository.findById(exampleId)
                 .orElseThrow(() -> new IllegalArgumentException("올바른 문제 번호를 입력해 주세요."));

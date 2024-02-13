@@ -16,7 +16,7 @@ public class CommentController {
 
     @PostMapping("/save/{postId}")
     public String save(Principal principal, @PathVariable("postId") Long postId, @RequestBody @Valid RequestCommentDto requestCommentDto){
-        return commentService.save(principal, postId, requestCommentDto);
+        return commentService.save(Long.valueOf(principal.getName()), postId, requestCommentDto);
     }
 
     @GetMapping("/find/{postId}")
@@ -26,6 +26,6 @@ public class CommentController {
 
     @DeleteMapping("/delete/{id}")
     public String delete(Principal principal,@PathVariable("id") Long id){
-        return commentService.delete(principal,id);
+        return commentService.delete(Long.valueOf(principal.getName()),id);
     }
 }

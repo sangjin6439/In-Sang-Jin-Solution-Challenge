@@ -1,21 +1,28 @@
 package gdsc.insangjinsolutionchallenge.global.config;
 
-import gdsc.insangjinsolutionchallenge.global.oauth.JwtAccessDeniedHandler;
-import gdsc.insangjinsolutionchallenge.global.oauth.JwtAuthenticationEntryPoint;
+import gdsc.insangjinsolutionchallenge.global.oauth.JwtFilter;
 import gdsc.insangjinsolutionchallenge.global.oauth.JwtSecurityConfig;
 import gdsc.insangjinsolutionchallenge.global.oauth.TokenProvider;
+import gdsc.insangjinsolutionchallenge.global.securityEntry.CustomAccessDeniedHandler;
+import gdsc.insangjinsolutionchallenge.global.securityEntry.CustomAuthenticationEntryPoint;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpMethod;
-import org.springframework.web.filter.CorsFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.util.List;
 
 
 @Configuration
@@ -23,9 +30,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
     private final TokenProvider tokenProvider;
     private final CorsFilter corsFilter;
-    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
-    private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
-
+//    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+//    private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
+    private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
+    private final CustomAccessDeniedHandler customAccessDeniedHandler;
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -35,21 +43,20 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         // CSRF 설정 Disable
-        http.csrf().disable()
+        http.csrf()
+                .disable()
+                .cors(cors -> cors.configurationSource(configurationSource()))
+                .addFilterBefore(new JwtFilter(tokenProvider), UsernamePasswordAuthenticationFilter.class)
 
-                .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
-
-                // exception handling 할 때 우리가 만든 클래스를 추가
+                // exception handling 할 때 만든 클래스를 추가
                 .exceptionHandling()
-                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
-                .accessDeniedHandler(jwtAccessDeniedHandler)
-
+                .authenticationEntryPoint(customAuthenticationEntryPoint)
+                .accessDeniedHandler(customAccessDeniedHandler)
 
                 .and()
                 .headers()
                 .frameOptions()
                 .sameOrigin()
-
                 // 시큐리티는 기본적으로 세션을 사용
                 // 여기서는 세션을 사용하지 않기 때문에 세션 설정을 Stateless 로 설정
                 .and()
@@ -59,7 +66,7 @@ public class SecurityConfig {
                 // 로그인, 회원가입 API 는 토큰이 없는 상태에서 요청이 들어오기 때문에 permitAll 설정
                 .and()
                 .authorizeHttpRequests()
-                .requestMatchers("/auth/**").permitAll()
+                .requestMatchers("/auth/**","/posts/find/list/all","/ExtraLogin/**").permitAll()
                 .requestMatchers(HttpMethod.POST,"/examples/**").hasAuthority("ROLE_TEACHER")
                 .requestMatchers(HttpMethod.DELETE,"/examples/**").hasAuthority("ROLE_TEACHER")
                 .requestMatchers(HttpMethod.PATCH,"/examples/**").hasAuthority("ROLE_TEACHER")
@@ -72,21 +79,30 @@ public class SecurityConfig {
 
         return http.build();
     }
-//    @Bean
-//    public CorsConfigurationSource configurationSource() {
-//        CorsConfiguration configuration = new CorsConfiguration();
-//
-//        configuration.setAllowedOriginPatterns(List.of("*"));
-//        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
-//        configuration.setAllowedHeaders(List.of("*"));
-//        configuration.setExposedHeaders(List.of("Access-Control-Allow-Credentials", "Authorization", "Set-Cookie"));
-//        configuration.setAllowCredentials(true);
-//        configuration.setMaxAge(3600L);
-//
-//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        source.registerCorsConfiguration("/**", configuration);
-//
-//        return source;
-//    }
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**").allowedOrigins("http://localhost:5173");
+            }
+        };
+    }
+    @Bean
+    public CorsConfigurationSource configurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+    //setAllowedOriginPatterns 여기에는 값이 "*"이면 안됨
+        configuration.setAllowedOriginPatterns(List.of("http://localhost:5173"));
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(List.of("*"));
+        configuration.setExposedHeaders(List.of("Access-Control-Allow-Credentials", "Authorization", "Set-Cookie"));
+        configuration.setAllowCredentials(true);
+        configuration.setMaxAge(3600L);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+
+        return source;
+    }
 
 }

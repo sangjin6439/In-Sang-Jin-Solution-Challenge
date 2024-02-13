@@ -1,6 +1,5 @@
 package gdsc.insangjinsolutionchallenge.domain.post;
 
-import gdsc.insangjinsolutionchallenge.global.oauth.SecurityUtil;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,8 +17,8 @@ public class PostController {
 
 
     @PostMapping("/save")
-    public String save(@RequestBody @Valid RequestPostDto requestPostDto) {
-        return postService.save(SecurityUtil.getCurrentMemberId(), requestPostDto);
+    public String save(Principal principal, @RequestBody @Valid RequestPostDto requestPostDto) {
+        return postService.save(Long.valueOf(principal.getName()), requestPostDto);
     }
 
 //    @PostMapping
@@ -49,13 +48,13 @@ public class PostController {
     }
 
     @PatchMapping("/update/{id}")
-    public String update( @PathVariable("id")Long id,@RequestBody RequestPostDto requestPostDto){
-        return postService.update(SecurityUtil.getCurrentMemberId(), id,requestPostDto);
+    public String update(Principal principal, @PathVariable("id")Long id,@RequestBody RequestPostDto requestPostDto){
+        return postService.update(Long.valueOf(principal.getName()), id,requestPostDto);
     }
 
     @DeleteMapping("delete/{id}")
     public String delete(Principal principal, @PathVariable("id") Long id) {
-        return postService.delete(principal,id);
+        return postService.delete(Long.valueOf(principal.getName()),id);
     }
 
 

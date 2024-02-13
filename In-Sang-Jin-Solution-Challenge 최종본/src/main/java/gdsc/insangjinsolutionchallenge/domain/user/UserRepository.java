@@ -15,8 +15,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     boolean existsByEmail(String email);
 
-    User findById(long id);
-
     @Query("SELECT u FROM User u ORDER BY u.totalScore DESC ")
     List<User> findUsersByTotalScore();
 
