@@ -1,6 +1,6 @@
 package gdsc.insangjinsolutionchallenge.global.oauth;//package gdsc.insangjinsolutionchallenge.oauth;
 
-import gdsc.insangjinsolutionchallenge.domain.TokenDto;
+import gdsc.insangjinsolutionchallenge.global.Token.TokenDto;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;

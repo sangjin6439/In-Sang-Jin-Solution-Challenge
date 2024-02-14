@@ -1,4 +1,4 @@
-package gdsc.insangjinsolutionchallenge.domain;
+package gdsc.insangjinsolutionchallenge.global.Token;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,7 +1,7 @@
 package gdsc.insangjinsolutionchallenge.global.oauth;
 
-import gdsc.insangjinsolutionchallenge.domain.TokenDto;
-import gdsc.insangjinsolutionchallenge.domain.TokenRequestDto;
+import gdsc.insangjinsolutionchallenge.global.Token.TokenDto;
+import gdsc.insangjinsolutionchallenge.global.Token.TokenRequestDto;
 import gdsc.insangjinsolutionchallenge.domain.user.LoginUserDto;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;

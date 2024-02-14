@@ -17,20 +17,10 @@ import java.util.List;
 public class PostController {
     private final PostService postService;
 
-
     @PostMapping("/save")
     public String save(Principal principal, @RequestBody @Valid RequestPostDto requestPostDto) {
         return postService.save(Long.valueOf(principal.getName()), requestPostDto);
     }
-
-//    @PostMapping
-//    public Post save(@RequestBody @Valid RequestPostDto requestPostDto) {
-//        return postRepository.save(Post.builder()
-//                .user(userRepository.findById(1L))
-//                .title(requestPostDto.getTitle())
-//                .content(requestPostDto.getContent())
-//                .build());
-//    }
 
     @GetMapping("/find/list/{sort}")
     public List<ResponsePostListDto> findAll(@PathVariable("sort") String sort) {
@@ -58,6 +48,5 @@ public class PostController {
     public String delete(Principal principal, @PathVariable("id") Long id) {
         return postService.delete(Long.valueOf(principal.getName()),id);
     }
-
 
 }

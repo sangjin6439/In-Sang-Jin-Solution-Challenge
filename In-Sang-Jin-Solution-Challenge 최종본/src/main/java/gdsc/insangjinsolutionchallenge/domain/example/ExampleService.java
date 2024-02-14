@@ -38,6 +38,7 @@ public class ExampleService {
 
         for (Example example : examples) {
             ResponseExampleListDto responseExampleListDto =ResponseExampleListDto.builder()
+                    .id(example.getId())
                     .title(example.getTitle())
                     .multipleChoice(example.getMultipleChoice())
                     .category(example.getCategory())
