@@ -1,7 +1,7 @@
 package gdsc.insangjinsolutionchallenge.domain.submission;
 
 import gdsc.insangjinsolutionchallenge.domain.example.Example;
-import gdsc.insangjinsolutionchallenge.global.DateEntity;
+import gdsc.insangjinsolutionchallenge.domain.DateEntity;
 import gdsc.insangjinsolutionchallenge.domain.user.User;
 import jakarta.persistence.*;
 import lombok.*;

@@ -1,11 +1,13 @@
 package gdsc.insangjinsolutionchallenge.domain.example;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
 
+@Tag(name = "문제 API", description = "문제관련 API.")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/examples")
@@ -28,9 +30,10 @@ public class ExampleController {
         return exampleService.findExamples();
     }
 
+    //플러터에서 바디에 값을 넣고 get요청이 안돼서 post로 요청함(오류 발생해서 param으로 넘김), 패스밸류로 두개 넘기니까 두번 send해야 인식했음
     @GetMapping("/find")
-    public List<ResponseExampleListDto> findByGradeAndCategory(@RequestBody GradeAndCategory gradeAndCategory){
-        return exampleService.findExampleByGradeAndCategory(gradeAndCategory.getGrade(),gradeAndCategory.getCategory());
+    public List<ResponseExampleListDto> findByGradeAndCategory(@RequestParam("grade") String grade, @RequestParam("category") String category){
+        return exampleService.findExampleByGradeAndCategory(grade,category);
     }
 
     @PatchMapping("/{id}")

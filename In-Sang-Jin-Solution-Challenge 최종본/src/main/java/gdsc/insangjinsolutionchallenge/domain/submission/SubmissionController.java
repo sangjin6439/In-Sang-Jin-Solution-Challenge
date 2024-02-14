@@ -1,5 +1,6 @@
 package gdsc.insangjinsolutionchallenge.domain.submission;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -7,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.util.List;
 
+@Tag(name = "풀이 제출 API", description = "풀이 제출관련 API.")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/submissions")

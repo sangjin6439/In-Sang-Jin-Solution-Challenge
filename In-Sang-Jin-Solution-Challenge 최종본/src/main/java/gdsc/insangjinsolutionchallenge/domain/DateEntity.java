@@ -1,4 +1,4 @@
-package gdsc.insangjinsolutionchallenge.global;
+package gdsc.insangjinsolutionchallenge.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;

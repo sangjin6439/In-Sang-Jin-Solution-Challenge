@@ -17,7 +17,8 @@ spring:
       ddl-auto: create
     properties:
       hibernate:
-        show_sql: true
+#       이것까지 sql보이면 똑같은 sql 두번 보여서 가독성 떨어짐
+#        show_sql: true
         format_sql: true
         use_sql_comments: true
 #        type:
@@ -44,13 +45,19 @@ springdoc:
   swagger-ui:
     operations-sorter: alpha
     tags-sorter: alpha
-    path: /swagger-ui.html
+#    path: /swagger-ui.html
+    path: /
     disable-swagger-default-url: true
     display-query-params-without-oauth2: true
     doc-expansion: none
   paths-to-match:
+    - /users/**
     - /examples/**
-
+    - /submissions/**
+    - /posts/**
+    - /comment/**
+    - /likes/**
+    - /auth/**
 
 jwt:
   secret: ${JWT_SECRET}

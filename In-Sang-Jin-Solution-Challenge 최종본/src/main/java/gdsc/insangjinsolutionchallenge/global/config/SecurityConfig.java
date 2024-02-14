@@ -64,7 +64,7 @@ public class SecurityConfig {
                 // 로그인, 회원가입 API 는 토큰이 없는 상태에서 요청이 들어오기 때문에 permitAll 설정
                 .and()
                 .authorizeHttpRequests()
-                .requestMatchers("/auth/**","/posts/find/list/all","/ExtraLogin/**","/swagger-ui.html", "/swagger-ui/**", "/api-docs/**").permitAll()
+                .requestMatchers("/","/auth/**","/posts/find/list/all","/ExtraLogin/**","/swagger-ui.html", "/swagger-ui/**", "/api-docs/**").permitAll()
                 .requestMatchers(HttpMethod.POST,"/examples/**").hasAuthority("ROLE_TEACHER")
                 .requestMatchers(HttpMethod.DELETE,"/examples/**").hasAuthority("ROLE_TEACHER")
                 .requestMatchers(HttpMethod.PATCH,"/examples/**").hasAuthority("ROLE_TEACHER")

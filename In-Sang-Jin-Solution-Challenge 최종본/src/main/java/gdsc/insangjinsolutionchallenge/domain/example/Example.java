@@ -1,7 +1,7 @@
 package gdsc.insangjinsolutionchallenge.domain.example;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import gdsc.insangjinsolutionchallenge.global.DateEntity;
+import gdsc.insangjinsolutionchallenge.domain.DateEntity;
 import gdsc.insangjinsolutionchallenge.domain.submission.Submission;
 import jakarta.persistence.*;
 import lombok.*;

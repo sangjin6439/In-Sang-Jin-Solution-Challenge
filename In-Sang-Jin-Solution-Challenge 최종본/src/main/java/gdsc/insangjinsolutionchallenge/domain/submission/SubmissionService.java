@@ -32,18 +32,25 @@ public class SubmissionService {
                 .userAnswer(requestSubmissionDto.getUserAnswer())
                 .build();
 
+        // 유저가 이전에 문제를 맞추었는지 확인
+        boolean isPreviouslyCorrect = submissionRepository.existsByUserAndExampleAndCorrect(userinfo, example, true);
+        if (isPreviouslyCorrect) {
+            throw new IllegalArgumentException("이미 맞춘 문제에 대해선 점수를 받을 수 없습니다.");
+        }
+
+        //문제를 맞췄는지 확인
         submission.setCorrect(submission.checkAnswer(example));
 
+        //점수 추가 메서드
         if (submission.isCorrect()) {
             userinfo.addTotalScoreAndUpdateLevel(example.getScore());
         }
         submissionRepository.save(submission);
 
-
         userRepository.save(userinfo);
 
+        //정답률 관련 메서드
         int totalSubmissions = example.getSubmissions().size();
-
         int correctSubmissions = (int) example.getSubmissions().stream()
                 .filter(Submission::isCorrect)
                 .count();
@@ -54,12 +61,11 @@ public class SubmissionService {
         return submission;
     }
 
-
     @Transactional(readOnly = true)
     public List<ResponseSubmission> findSubmission(Long exmapleId) {
-       Example example = exampleRepository.findById(exmapleId).orElseThrow(()-> new IllegalArgumentException("없는 문제입니다."));
-       List<Submission> submissions =example.getSubmissions();
-       List<ResponseSubmission> responseSubmission = new ArrayList<>();
+        Example example = exampleRepository.findById(exmapleId).orElseThrow(() -> new IllegalArgumentException("없는 문제입니다."));
+        List<Submission> submissions = example.getSubmissions();
+        List<ResponseSubmission> responseSubmission = new ArrayList<>();
 
         for (Submission submission : submissions) {
             ResponseSubmission responseSubmission1 = ResponseSubmission.builder()
@@ -73,11 +79,8 @@ public class SubmissionService {
         return responseSubmission;
     }
 
-
     private Submission findById(Long submissionId) {
         return submissionRepository.findById(submissionId)
                 .orElseThrow(() -> new IllegalArgumentException("정확한 제출 번호를 입력하세요"));
     }
-
-
 }

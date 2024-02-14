@@ -68,7 +68,6 @@ public class ExampleService {
     @Transactional
     public String deleteExample(Long exampleId) {
         exampleRepository.delete(findById(exampleId));
-
         return "삭제 완료!";
     }
 

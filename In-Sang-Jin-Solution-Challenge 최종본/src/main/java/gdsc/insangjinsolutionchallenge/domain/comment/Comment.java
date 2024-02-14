@@ -1,6 +1,6 @@
 package gdsc.insangjinsolutionchallenge.domain.comment;
 
-import gdsc.insangjinsolutionchallenge.global.DateEntity;
+import gdsc.insangjinsolutionchallenge.domain.DateEntity;
 import gdsc.insangjinsolutionchallenge.domain.post.Post;
 import gdsc.insangjinsolutionchallenge.domain.user.User;
 import jakarta.persistence.*;

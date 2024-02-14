@@ -2,10 +2,15 @@ package gdsc.insangjinsolutionchallenge.global.config;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Info;
+import io.swagger.v3.oas.models.Components;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import lombok.RequiredArgsConstructor;
-import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.Arrays;
 
 @OpenAPIDefinition(
         info = @Info(title = "LightHouse API 명세서",
@@ -14,14 +19,17 @@ import org.springframework.context.annotation.Configuration;
 @RequiredArgsConstructor
 @Configuration
 public class SwaggerConfig {
-    @Bean
-    public GroupedOpenApi chatOpenApi() {
-        // "/v1/**" 경로에 매칭되는 API를 그룹화하여 문서화한다.
-        String[] paths = {"/examples/**"};
 
-        return GroupedOpenApi.builder()
-                .group("문제 API")  // 그룹 이름을 설정한다.
-                .pathsToMatch(paths)     // 그룹에 속하는 경로 패턴을 지정한다.
-                .build();
+    // security토큰 추가
+    @Bean
+    public OpenAPI openAPI() {
+        SecurityScheme securityScheme = new SecurityScheme()
+                .type(SecurityScheme.Type.HTTP).scheme("bearer").bearerFormat("JWT")
+                .in(SecurityScheme.In.HEADER).name("Authorization");
+        SecurityRequirement securityRequirement = new SecurityRequirement().addList("bearerAuth");
+
+        return new OpenAPI()
+                .components(new Components().addSecuritySchemes("bearerAuth", securityScheme))
+                .security(Arrays.asList(securityRequirement));
     }
 }

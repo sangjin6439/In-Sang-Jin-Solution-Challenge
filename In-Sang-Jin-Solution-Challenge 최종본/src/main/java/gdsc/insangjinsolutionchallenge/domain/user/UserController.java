@@ -1,5 +1,6 @@
 package gdsc.insangjinsolutionchallenge.domain.user;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -7,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.util.List;
 
+@Tag(name = "유저 API", description = "유저관련 API.")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/users")

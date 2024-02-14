@@ -1,5 +1,6 @@
 package gdsc.insangjinsolutionchallenge.domain.post;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.util.List;
 
+@Tag(name = "게시판 API", description = "게시판관련 API.")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/posts")
