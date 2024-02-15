@@ -45,6 +45,8 @@ public class ExampleService {
                     .content(example.getContent())
                     .grade(example.getGrade())
                     .score(example.getScore())
+                    .correct(example.getCorrect())
+                    .correctPercentage(example.getCorrectPercentage())
                     .build();
             responseExampleListDtos.add(responseExampleListDto);
         }
@@ -52,8 +54,25 @@ public class ExampleService {
     }
 
     @Transactional(readOnly = true)
-    public List<Example> findExamples() {
-        return exampleRepository.findAll();
+    public List<ResponseExampleListDto> findExamples() {
+        List<Example> examples = exampleRepository.findAll();
+        List<ResponseExampleListDto> responseExampleListDtos = new ArrayList<>();
+
+        for (Example example : examples) {
+            ResponseExampleListDto responseExampleListDto =ResponseExampleListDto.builder()
+                    .id(example.getId())
+                    .title(example.getTitle())
+                    .multipleChoice(example.getMultipleChoice())
+                    .category(example.getCategory())
+                    .content(example.getContent())
+                    .grade(example.getGrade())
+                    .score(example.getScore())
+                    .correct(example.getCorrect())
+                    .correctPercentage(example.getCorrectPercentage())
+                    .build();
+            responseExampleListDtos.add(responseExampleListDto);
+        }
+        return responseExampleListDtos;
     }
 
 

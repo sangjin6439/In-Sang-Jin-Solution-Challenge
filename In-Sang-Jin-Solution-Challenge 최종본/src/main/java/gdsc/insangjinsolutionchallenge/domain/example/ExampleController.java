@@ -26,7 +26,7 @@ public class ExampleController {
     }
 
     @GetMapping("/all") //DTO로 매핑 해야함-> 카테고리별로 나누고 페이징해야함
-    public List<Example> findAll(){
+    public List<ResponseExampleListDto> findAll(){
         return exampleService.findExamples();
     }
 

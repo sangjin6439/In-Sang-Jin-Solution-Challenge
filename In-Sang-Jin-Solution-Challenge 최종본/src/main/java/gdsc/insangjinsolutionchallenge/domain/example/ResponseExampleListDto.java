@@ -13,5 +13,6 @@ public class ResponseExampleListDto {
     private Long score;
     private String grade;
     private String category;
-
+    private String correct;
+    private Double correctPercentage;
 }
