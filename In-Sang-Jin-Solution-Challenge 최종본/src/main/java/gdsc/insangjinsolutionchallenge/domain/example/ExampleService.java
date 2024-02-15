@@ -69,6 +69,7 @@ public class ExampleService {
                     .score(example.getScore())
                     .correct(example.getCorrect())
                     .correctPercentage(example.getCorrectPercentage())
+                    .imgPath(example.getImgPath())
                     .build();
             responseExampleListDtos.add(responseExampleListDto);
         }

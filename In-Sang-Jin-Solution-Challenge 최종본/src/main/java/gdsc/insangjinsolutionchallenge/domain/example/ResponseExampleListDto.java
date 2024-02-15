@@ -15,4 +15,5 @@ public class ResponseExampleListDto {
     private String category;
     private String correct;
     private Double correctPercentage;
+    private String imgPath;
 }
