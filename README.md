@@ -17,7 +17,7 @@ Figma: https://www.figma.com/file/qPxfDD1vklZk6W4luJrFkL/lighthouse-web?type=des
 
 Wireframe: https://www.notion.so/0e0a71d3f7b4465f82324ea81ef77f3f?v=53ae6ca5a5d64b6cbc53afa86333a793
 
-Swagger: lighthouse1.site
+Swagger: lighthouse1.site.com
 
 ## 👬 개발 팀원
 
