@@ -14,7 +14,7 @@ public class ResponseCommentDto {
     private String userName;
     private Integer userLevel;
     private String content;
-    private LocalDateTime creatAt;
+    private LocalDateTime createAt;
 
     public static ResponseCommentDto toDto(Comment comment) {
         return ResponseCommentDto.builder()
@@ -22,7 +22,7 @@ public class ResponseCommentDto {
                 .userName(comment.getUser().getName())
                 .userLevel(comment.getUser().getLevel())
                 .content(comment.getContent())
-                .creatAt(comment.getCreateAt())
+                .createAt(comment.getCreateAt())
                 .build();
     }
 

@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -41,7 +40,7 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public List<RankingUserDto> findUsersBySchoolWithTotalScore(String school) {
-        List<User> userList = userRepository.findUsersBySchoolWithTotalScore(school);
+        List<User> userList = userRepository.findBySchoolOrderByTotalScoreDesc(school);
         return getRankingUserDtos(userList);
 
     }
@@ -62,19 +61,16 @@ public class UserService {
     }
 
     private List<RankingUserDto> getRankingUserDtos(List<User> userList) {
-        List<RankingUserDto> rankingUserDtos = new ArrayList<>();
-
-        for (User user : userList) {
-            RankingUserDto rankingUserDto = RankingUserDto.builder()
-                    .name(user.getName())
-                    .email(user.getEmail())
-                    .totalScore(user.getTotalScore())
-                    .level(user.getLevel())
-                    .build();
-            rankingUserDtos.add(rankingUserDto);
-        }
-        return rankingUserDtos;
+        return userList.stream()
+                .map(user -> RankingUserDto.builder()
+                        .name(user.getName())
+                        .email(user.getEmail())
+                        .totalScore(user.getTotalScore())
+                        .level(user.getLevel())
+                        .build())
+                .toList();
     }
+
 
 
 

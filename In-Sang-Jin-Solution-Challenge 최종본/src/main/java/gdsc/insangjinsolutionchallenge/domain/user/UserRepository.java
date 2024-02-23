@@ -2,7 +2,6 @@ package gdsc.insangjinsolutionchallenge.domain.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -18,7 +17,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("SELECT u FROM User u ORDER BY u.totalScore DESC ")
     List<User> findUsersByTotalScore();
 
-    @Query("SELECT u FROM User u Where u.school = :school ORDER BY u.totalScore DESC")
-    List<User> findUsersBySchoolWithTotalScore(@Param("school") String school);
+    List<User> findBySchoolOrderByTotalScoreDesc(String school);
 
 }

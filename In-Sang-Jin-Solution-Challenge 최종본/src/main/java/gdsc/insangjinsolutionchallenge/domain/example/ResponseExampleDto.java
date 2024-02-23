@@ -18,7 +18,7 @@ public class ResponseExampleDto {
     private Long score;
     private String category;
     private String grade;
-    private LocalDateTime creatAt;
+    private LocalDateTime createAt;
     private LocalDateTime updateAt;
 
     public static ResponseExampleDto toDto(Example example){
@@ -31,7 +31,7 @@ public class ResponseExampleDto {
                 .score(example.getScore())
                 .category(example.getCategory())
                 .grade(example.getGrade())
-                .creatAt(example.getCreateAt())
+                .createAt(example.getCreateAt())
                 .updateAt(example.getUpdateAt())
                 .build();
     }

@@ -67,15 +67,14 @@ public class SubmissionService {
         List<Submission> submissions = example.getSubmissions();
         List<ResponseSubmission> responseSubmission = new ArrayList<>();
 
-        for (Submission submission : submissions) {
-            ResponseSubmission responseSubmission1 = ResponseSubmission.builder()
-                    .userAnswer(submission.getUserAnswer())
-                    .correct(submission.isCorrect())
-                    .createAt(submission.getCreateAt())
-                    .build();
+        List<ResponseSubmission> responseSubmissions = submissions.stream()
+                .map(submission -> ResponseSubmission.builder()
+                        .userAnswer(submission.getUserAnswer())
+                        .correct(submission.isCorrect())
+                        .createAt(submission.getCreateAt())
+                        .build())
+                .toList();
 
-            responseSubmission.add(responseSubmission1);
-        }
         return responseSubmission;
     }
 

@@ -20,7 +20,7 @@ public class ResponsePostDto {
     private String content;
     private Integer likeCount;
     private List<ResponseCommentDto> comments;
-    private LocalDateTime creatAt;
+    private LocalDateTime createAt;
     private LocalDateTime updateAt;
 
     public static ResponsePostDto toDto(Post post){
@@ -30,7 +30,7 @@ public class ResponsePostDto {
                 .userLevel(post.getUser().getLevel())
                 .title(post.getTitle())
                 .content(post.getContent())
-                .creatAt(post.getCreateAt())
+                .createAt(post.getCreateAt())
                 .updateAt(post.getUpdateAt())
                 .build();
     }

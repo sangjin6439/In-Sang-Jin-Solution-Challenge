@@ -11,7 +11,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -43,20 +42,19 @@ public class PostService {
         }else {
             posts = postRepository.findAll(Sort.by(Sort.Direction.DESC, "likeCount"));
         }
-        List<ResponsePostListDto> responsePostDtos = new ArrayList<>();
 
-        for (Post post : posts) {
-            ResponsePostListDto responsePostDto = ResponsePostListDto.builder()
-                    .id(post.getId())
-                    .title(post.getTitle())
-                    .content(post.getContent())
-                    .likeCount(post.getLikeCount())
-                    .userName(post.getUser().getName())
-                    .userLevel(post.getUser().getLevel())
-                    .creatAt(post.getCreateAt())
-                    .build();
-            responsePostDtos.add(responsePostDto);
-        }
+        List<ResponsePostListDto> responsePostDtos = posts.stream()
+                .map(post -> ResponsePostListDto.builder()
+                        .id(post.getId())
+                        .title(post.getTitle())
+                        .content(post.getContent())
+                        .likeCount(post.getLikeCount())
+                        .userName(post.getUser().getName())
+                        .userLevel(post.getUser().getLevel())
+                        .createAt(post.getCreateAt())
+                        .build())
+                .toList();
+
         return responsePostDtos;
     }
 
@@ -65,20 +63,17 @@ public class PostService {
     @Transactional(readOnly = true)
     public List<ResponsePostListDto> findSearchTerm(String searchTerm){
         List<Post> posts = postRepository.findByTitleContaining(searchTerm);
-        List<ResponsePostListDto> responsePostDtos = new ArrayList<>();
-
-        for (Post post : posts) {
-            ResponsePostListDto responsePostDto = ResponsePostListDto.builder()
-                    .id(post.getId())
-                    .title(post.getTitle())
-                    .content(post.getContent())
-                    .likeCount(post.getLikeCount())
-                    .userName(post.getUser().getName())
-                    .userLevel(post.getUser().getLevel())
-                    .creatAt(post.getCreateAt())
-                    .build();
-            responsePostDtos.add(responsePostDto);
-        }
+        List<ResponsePostListDto> responsePostDtos = posts.stream()
+                .map(post -> ResponsePostListDto.builder()
+                        .id(post.getId())
+                        .title(post.getTitle())
+                        .content(post.getContent())
+                        .likeCount(post.getLikeCount())
+                        .userName(post.getUser().getName())
+                        .userLevel(post.getUser().getLevel())
+                        .createAt(post.getCreateAt())
+                        .build())
+                .toList();
         return responsePostDtos;
     }
 
@@ -86,15 +81,15 @@ public class PostService {
     public ResponsePostDto find(Long id){
         Post post = findPostDao(id);
         List<ResponseCommentDto> commentDtos = commentService.findAll(id);
+
         ResponsePostDto responsePostDto = ResponsePostDto.builder()
                 .id(post.getId())
                 .title(post.getTitle())
                 .content(post.getContent())
-                .content(post.getContent())
                 .userName(post.getUser().getName())
                 .userLevel(post.getUser().getLevel())
                 .comments(commentDtos)
-                .creatAt(post.getCreateAt())
+                .createAt(post.getCreateAt())
                 .updateAt(post.getUpdateAt())
                 .likeCount(post.getLikeCount())
                 .build();

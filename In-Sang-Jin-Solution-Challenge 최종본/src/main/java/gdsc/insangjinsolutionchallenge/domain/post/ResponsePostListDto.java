@@ -17,5 +17,5 @@ public class ResponsePostListDto {
     private String title;
     private String content;
     private int likeCount;
-    private LocalDateTime creatAt;
+    private LocalDateTime createAt;
 }

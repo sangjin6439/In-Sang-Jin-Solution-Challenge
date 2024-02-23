@@ -10,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -38,18 +37,16 @@ public class CommentService {
     @Transactional(readOnly = true)
     public List<ResponseCommentDto> findAll(Long postId){
         List<Comment> comments = commentRepository.findAllByPostId(postId);
-        List<ResponseCommentDto> commentDtos = new ArrayList<>();
+        List<ResponseCommentDto> commentDtos = comments.stream()
+                .map(comment -> ResponseCommentDto.builder()
+                        .id(comment.getId())
+                        .userName(comment.getUser().getName())
+                        .userLevel(comment.getUser().getLevel())
+                        .content(comment.getContent())
+                        .createAt(comment.getCreateAt())
+                        .build())
+                .toList();
 
-        for (Comment comment : comments) {
-            ResponseCommentDto responseCommentDto =ResponseCommentDto.builder()
-                    .id(comment.getId())
-                    .userName(comment.getUser().getName())
-                    .userLevel(comment.getUser().getLevel())
-                    .content(comment.getContent())
-                    .creatAt(comment.getCreateAt())
-                    .build();
-            commentDtos.add(responseCommentDto);
-        }
         return commentDtos;
     }
 
