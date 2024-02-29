@@ -44,14 +44,7 @@ dependencies {
 //    options.compilerArgs << '-parameters'
 //}
 //
-//// Docker
-//bootBuildImage {
-//    imageName = System.getenv("DOCKER_USERNAME") + "/${project.name.toLowerCase()}"
-//    publish = true
-//    docker {
-//        publishRegistry {
-//            username = System.getenv("DOCKER_USERNAME")
-//            password = System.getenv("DOCKER_PASSWORD")
-//        }
-//    }
-//}
+// Docker
+jar {
+    enabled = false
+}
