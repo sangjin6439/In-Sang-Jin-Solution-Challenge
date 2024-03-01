@@ -5,6 +5,7 @@ spring:
         registration:
           google:
             scope: profile, email # 기본값이 openid, profile, email이지만 openid를 등록하게 되면 서비스마다(카카오, 네이버) OAuth2Service를 만들어야하기 때문에 profile, email만 scope로 지정
+
   datasource:
     url: ${DB_JDBC_URL}
     username: ${DB_USER}
@@ -18,16 +19,12 @@ spring:
     properties:
       hibernate:
 #       이것까지 sql보이면 똑같은 sql 두번 보여서 가독성 떨어짐
-#        show_sql: true
+        show_sql: true
         format_sql: true
         use_sql_comments: true
-#        type:
-#          descriptor:
-#            sql: trace
-
-#  mvc:
-#    path-match:
-#      matching-strategy: ant_path_matcher
+        type:
+          descriptor:
+            sql: trace
 
 
 
