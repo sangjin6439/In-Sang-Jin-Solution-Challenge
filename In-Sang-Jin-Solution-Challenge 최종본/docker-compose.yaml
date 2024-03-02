@@ -1,34 +1,36 @@
 version : "3.7"
 services:
   database:
-    image: mysql:8.0.36
+    container_name: mysql_db
+    image: mysql:latest
+    command: --default-authentication-plugin=mysql_native_password
     restart: always
-    container_name: database
     environment:
-      MYSQL_DATABASE: test
+      MYSQL_DATABASE: GDSC-Sollution-Challenge
       MYSQL_ROOT_PASSWORD: jack0366!
-    volumes:
-      - ./db:/var/lib/mysql
+      TZ: 'Asia/Seoul'
     ports:
       - "3306:3306"
     networks:
       - springboot-mysql-net
   app:
     build:
-      context: .
+      context: ./
       dockerfile: Dockerfile
     restart: always
+    container_name: lighthouse_app
     ports:
       - "8080:8080"
-    depends_on:
-      - database
-    container_name: lighthouse_app
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://database:3306/test?useSSL=false&allowPublicKeyRetrieval=true
-      SPRING_DATASOURCE_USERNAME: testuser
+      SPRING_DATASOURCE_URL: jdbc:mysql://database:3306/GDSC-Sollution-Challenge
+      SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: jack0366!
+      JWT_SECRET: KaMa/iIsXRtbIQcX9u7ZA2b4E6hoYEHl6v2WYfkYmVXurJAaQ6kAohu0DfzuSXeV
     networks:
       - springboot-mysql-net
+    depends_on:
+      - database
+
 networks:
   springboot-mysql-net:
-    driver: bridge
+#    driver: bridge
