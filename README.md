@@ -1,3 +1,5 @@
+![메인 이미지](https://github.com/Solution-Challenge-LightHouse/.github/blob/main/1.jpg)
+
 # 📖 LightHouse
 
 #### Google Solution Challenge 2024에 참여하여 만든 서버코드입니다.
